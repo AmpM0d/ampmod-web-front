@@ -1,0 +1,6 @@
+# Mirrors
+The AmpMod editor is hosted on Codeberg. While Codeberg is generally stable, it occasionally
+experiences downtime. Here is a list of mirrors so you can use AmpMod while Codeberg
+is down or if you can't access it for any reason.
+
+* [50_scratch_tabs's mirror](https://50-scratch-tabs.github.io/AmpMirror/)

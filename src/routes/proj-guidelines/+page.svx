@@ -1,0 +1,152 @@
+---
+title: Project Uploading Guidelines
+---
+<script>
+    import Spoiler from '$components/spoiler/Spoiler.svelte';
+</script>
+# Project Uploading Guidelines
+*TL;DR: Keep it appropriate. This isn't a place to get away and break the Scratch guidelines.*
+
+These are the guidelines for uploading projects to the official AmpMod website.
+Uploading projects against these guidelines may result in them being removed.
+
+**These guidelines only apply to uploads to the official AmpMod website.** If you
+are packaging your project and uploading to other sites, follow their guidelines instead.
+
+## How to report projects/users
+You can report a project by clicking the red "Report" button below the social action
+buttons (love/propose/views) on a project.
+
+You can report a user by clicking the red "Report" button next to the "Follow" button.
+
+Please use these buttons to report projects/users as it makes moderation quicker
+and easier for us.
+
+Please do not report projects or users via public communication such as Scratch
+comments or forums. Please only report via the Report form.
+
+----
+
+## Base requirements
+Blank projects or projects that only contain a default sprite with no scripts will be removed.
+These take up space on our servers. This does not apply to projects with meaningful content
+like art or a message from the creator. This also does not apply to projects containing useful
+content for project creators, like a sound pack, font pack, extension pack, or maybe even a
+template.
+
+Each asset in your project combined should be less than 20MB, and the project.json file must be
+less than 10MB. This is to save storage space. There are technical restrictions to automatically
+prevent uploading such projects, but there is no punishment for this.
+
+All projects are licensed under the [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/)
+licence. However, remixes that do not make any meaningful changes to the original project will be
+removed.
+
+## Profanity
+Profanity is not allowed on the official AmpMod website. This includes the project name,
+description, and the project itself. AmpMod is available to users of all ages and we want to
+keep the website friendly.
+
+Very mild swears (specifically the ones allowed on Scratch, click to reveal: <Spoiler>crap, damn, hell</Spoiler>) are not allowed in the project name and description, but
+are allowed in projects as long as there is a warning in the description and/or the start of the project,
+and the profanity is used infrequently (e.g. max twice per sentence, don't use it in every sentence).
+<!-- Should we reconsider allowing very mild swear words? -->
+
+## Personal information
+You may not share or ask for personal information on the AmpMod website. This includes, but is not
+limited to:
+* Your age or birth year
+* Your location
+* Your email
+* Your phone number
+* Your real name
+
+Sharing usernames on other sites is generally allowed as long as there is no private messaging
+functionality on the site and your profile does not contain inappropriate content.
+
+For safety reasons, you are not allowed to use your face in your profile picture or in your
+projects.
+
+## Child abuse (CSAM)
+This is not allowed at all. If you post such content, you will be banned immediately and reported
+to the Scratch Team, who will report you to the relevant authorities and delete your
+Scratch account. Appeals for this will not be accepted.
+
+## Downloading malware / Phishing
+This is not allowed at all. If you post such content, you will be banned immediately and reported
+to the Scratch Team, who will report you to the relevant authorities and ban your
+Scratch account. You will also be reported to antivirus vendors. Appeals for this are unlikely
+to be accepted.
+
+## Adult content
+This is not allowed at all. If you post such content, you will be banned immediately. Appeals for
+this will not be accepted. There is a chance of being reported to the Scratch Team
+who will possibly report you to the relevant authorities and ban/delete your Scratch account,
+depending on the severity of the content - e.g. using exploits to get an inappropriate project
+on the front page will result in this happening.
+
+## Disturbing content
+Content that intentionally triggers phobias such as arachnophobia **must** include a warning at the start of the project
+and/or in the project notes. If not intentional, you may not recieve any punishment other than your
+project being removed.
+
+## Weaponry
+Extremely unrealistic/water/laser/Nerf guns are allowed. Realistic guns aren't.
+If you look at your gun, think about what sound it makes. If it makes "bang" instead of "pew" sounds,
+it isn't allowed.
+
+Knives are not allowed to be used as weaponry but can be used as a kitchen utensil.
+
+We are generally fine with swords, bombs, whips, magic, and physical combat. However, don't beat people
+to death. That isn't allowed.
+
+## Blood / Gore
+Blood and gore are not allowed on the AmpMod website.
+
+## Extensions
+Extensions are scripts that allow adding more blocks to the AmpMod editor. There are some built-in
+extensions, but custom JavaScript files can also be uploaded.
+
+Only AmpModders can upload projects with custom extensions, or any of the following built-in extensions:
+* Files
+* Fetch
+* HTTP
+* CloudLink
+* Local Storage
+* Iframe
+
+There are technical restrictions in place to prevent New AmpModders from uploading projects with
+custom extensions. If you are a New AmpModder, wait until you can rank up to an AmpModder. See the
+AmpMod Wiki for more information.
+
+Extensions that can grab IP addresses and other sensitive info directly for malicious purposes like
+doxing are not allowed.
+
+### Iframes
+You can use iframes in your projects, but projects just about displaying websites are not allowed.
+This includes "browser" projects.
+
+## Reuploads of Scratch projects
+Reuploads of Scratch projects are only allowed if:
+* You own the project; or
+* The owner of the project has gave you permission to reupload it (provide proof in the notes and credits)
+
+Unchanged reuploads of popular projects (e.g. *Paper Minecraft* or *Geometry Dash*) are not allowed.
+
+## "Cloud Chat" projects
+Projects that focus on chatting with other users are not allowed, as we cannot safely moderate these.
+
+## Projects with Cloud Chat functionality
+Projects with cloud chat that don't revolve around it are allowed only if users can only send select
+pre-defined messages.
+
+## Trademarks
+Usage of trademarks is not recommended without permission from the trademark holder. This includes Scratch
+mascots such as Scratch Cat, Gobo, Giga, Nano, Tera, and Pico.
+
+----
+
+## Contacting AmpMod
+You can contact AmpMod developers through their Scratch profile or ask questions on the
+[AmpMod forums](https://ampmod.flarum.cloud) or the [AmpMod forum topic on Scratch](https://scratch.mit.edu/discuss/topic/806311/).
+For legal questions, please consult a lawyer.
