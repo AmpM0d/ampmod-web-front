@@ -1,25 +1,26 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import Spinner from "$components/spinner/Spinner.svelte";
+    import Project from "$components/project/Project.svelte";
 
     export let title: string = 'Projects';
 
-    interface Project {
+    interface ProjectType {
         id: number;
         title: string;
         author: string;
         thumbnailUrl: string;
     }
 
-    let projects: Project[] = [];
+    let projects: ProjectType[] = [];
     let loading = true;
     let error: string | null = null;
 
-    async function fetchProjects(): Promise<Project[]> {
+    async function fetchProjects(): Promise<ProjectType[]> {
         // Fake API fetch with a fake delay
         return new Promise((resolve) => {
             setTimeout(() => {
-                const fakeProjects: Project[] = [
+                const fakeProjects: ProjectType[] = [
                     {
                         id: 1,
                         title: 'NYAN CAT DOGEING GAME',
@@ -98,15 +99,12 @@
     {:else if projects.length > 0}
         <div class="projects-container">
             {#each projects as project (project.id)}
-                <div class="project-card">
-                    <div class="thumbnail">
-                        <img src={project.thumbnailUrl} alt={project.title} loading="lazy">
-                    </div>
-                    <div class="details">
-                        <div class="project-title">{project.title}</div>
-                        <a href="/users/{project.author}" class="project-author">{project.author}</a>
-                    </div>
-                </div>
+                <Project
+                    id={project.id}
+                    title={project.title}
+                    author={project.author}
+                    thumbnailUrl={project.thumbnailUrl}
+                />
             {/each}
         </div>
     {:else}
@@ -116,11 +114,12 @@
 
 <style>
     .project-list {
+        background-color: var(--background-color);
+        color: var(--text-color);
         padding: 1rem;
         border-radius: 0.5rem;
-        border: 1px solid #dcdcdc;
-        background-color: #ffffff;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        border: 1px solid var(--border-color);
+        font-family: var(--font-stack);
         margin: 10px auto;
         max-width: 900px;
     }
@@ -129,61 +128,14 @@
         margin: 0 0 0.75rem 0;
         font-size: 1.25rem;
         font-weight: 600;
-        color: #333333;
+        color: var(--text-color);
     }
 
     .projects-container {
-        display: flex; /* Use flexbox for horizontal scrolling */
-        gap: 1rem;
-        overflow-x: auto; /* Enable horizontal scrolling */
-        padding-bottom: 1rem; /* Add some padding for scrollbar */
-    }
-
-    .project-card {
-        background-color: #f9f9f9;
-        border-radius: 0.375rem;
-        overflow: hidden;
-        border: 1px solid #e0e0e0;
-        width: 12rem; /* Set a fixed width for each card */
-        flex-shrink: 0; /* Prevent cards from shrinking */
-    }
-
-    .thumbnail {
-        aspect-ratio: 4 / 3;
-        background-color: #e0e0e0;
         display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .thumbnail img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .details {
-        padding: 0.75rem;
-    }
-
-    .project-title {
-        font-weight: 500;
-        margin-bottom: 0.25rem;
-        font-size: 1rem;
-        color: #333;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    .project-author {
-        font-size: 0.875rem;
-        color: #444;
-        margin-bottom: 0.25rem;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        text-decoration: none;
+        gap: 1rem;
+        overflow-x: auto;
+        padding-bottom: 1rem;
     }
 
     .error {

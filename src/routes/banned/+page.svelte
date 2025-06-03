@@ -111,7 +111,7 @@
         max-width: 900px;
         margin: 64px auto;
         border-radius: 8px;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: var(--font-stack);
         font-size: 1.02em;
     }
   

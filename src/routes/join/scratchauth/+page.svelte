@@ -70,7 +70,7 @@
         padding: 2rem;
         border: 1px solid #ccc;
         border-radius: 8px;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: var(--font-stack);
     }
 
     .join-form h1 {

@@ -42,7 +42,7 @@
         justify-content: center;
         padding: 8em;
         text-align: center;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: var(--font-stack);
     }
 
     .status {

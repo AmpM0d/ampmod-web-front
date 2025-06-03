@@ -4,8 +4,6 @@
 	import { page } from '$app/state';
 	import { theme } from '$stores/theme';
 	let { children } = $props();
-	import Header from '$components/header/Header.svelte';
-	import Footer from '$components/footer/Footer.svelte';
 	import 'normalize.css';
 
 	if (!import.meta.env.DEV) {
@@ -36,11 +34,9 @@
 </script>
 
 <div class="container" class:dark={$theme === 'dark'}>
-    <Header />
     <main>
         {@render children()}
     </main>
-    <Footer />
 </div>
 
 <style>

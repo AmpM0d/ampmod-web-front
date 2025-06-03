@@ -4,8 +4,9 @@
 <style>
     .mdsvex-page {
         margin: 1em auto;
-        max-width: 900px;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        padding: 1em;
+        max-width: 1000px;
+        font-family: var(--font-stack);
         font-size: 1.02em;
     }
 
@@ -20,6 +21,9 @@
 		text-decoration: none;
         font-weight: bold;
 	}
+    .mdsvex-page :global a:hover {
+        filter: brightness(0.9);
+    }
 </style>
 <div class="mdsvex-page">
     {@render children()}

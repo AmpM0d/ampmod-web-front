@@ -13,6 +13,14 @@ Uploading projects against these guidelines may result in them being removed.
 **These guidelines only apply to uploads to the official AmpMod website.** If you
 are packaging your project and uploading to other sites, follow their guidelines instead.
 
+You should also read the [Terms of Use](/terms).
+
+** Things that could possibly get you IP banned:**
+* Promoting hate ideologies
+* Posting anything illegal in [SERVER HOST COUNTRY]
+* Posting adult content
+* Spamming the API with requests (e.g. for uploading non-AmpMod projects)
+
 ## How to report projects/users
 You can report a project by clicking the red "Report" button below the social action
 buttons (love/propose/views) on a project.
@@ -50,6 +58,7 @@ keep the website friendly.
 Very mild swears (specifically the ones allowed on Scratch, click to reveal: <Spoiler>crap, damn, hell</Spoiler>) are not allowed in the project name and description, but
 are allowed in projects as long as there is a warning in the description and/or the start of the project,
 and the profanity is used infrequently (e.g. max twice per sentence, don't use it in every sentence).
+However, your project may be hidden from search results.
 <!-- Should we reconsider allowing very mild swear words? -->
 
 ## Personal information
@@ -71,6 +80,16 @@ projects.
 This is not allowed at all. If you post such content, you will be banned immediately and reported
 to the Scratch Team, who will report you to the relevant authorities and delete your
 Scratch account. Appeals for this will not be accepted.
+
+## Promoting hate ideologies
+This is not allowed at all. If you post such content, you will be banned immediately and reported
+to the Scratch Team, who will report you to the relevant authorities and delete your
+Scratch account. Appeals for this will not be accepted.
+
+Note that creating educational projects about hate ideologies may be allowed as long as nothing bad
+is mentioned and it's not about anything modern-day. E.g. a project about the <Spoiler>Nazis</Spoiler>
+and why they went to war would be OK, but a game where you play as a <Spoiler>neo-Nazi</Spoiler> and invade
+countries will absolutely get you punished.
 
 ## Downloading malware / Phishing
 This is not allowed at all. If you post such content, you will be banned immediately and reported
@@ -101,7 +120,8 @@ We are generally fine with swords, bombs, whips, magic, and physical combat. How
 to death. That isn't allowed.
 
 ## Blood / Gore
-Blood and gore are not allowed on the AmpMod website.
+Blood and gore are not allowed on the AmpMod website. In addition, "Sprunki" Incredibox-type projects,
+which revolve around blood and gore, are not allowed.
 
 ## Extensions
 Extensions are scripts that allow adding more blocks to the AmpMod editor. There are some built-in
@@ -124,7 +144,8 @@ doxing are not allowed.
 
 ### Iframes
 You can use iframes in your projects, but projects just about displaying websites are not allowed.
-This includes "browser" projects.
+This includes "browser" projects. Projects that show websites against the guidelines are also not
+allowed.
 
 ## Reuploads of Scratch projects
 Reuploads of Scratch projects are only allowed if:
@@ -133,12 +154,10 @@ Reuploads of Scratch projects are only allowed if:
 
 Unchanged reuploads of popular projects (e.g. *Paper Minecraft* or *Geometry Dash*) are not allowed.
 
-## "Cloud Chat" projects
+## Cloud variable chatrooms
 Projects that focus on chatting with other users are not allowed, as we cannot safely moderate these.
-
-## Projects with Cloud Chat functionality
-Projects with cloud chat that don't revolve around it are allowed only if users can only send select
-pre-defined messages.
+However, projects with cloud chat that don't revolve around it *are* allowed, but only if users can only
+send select pre-defined messages that they cannot create themselves.
 
 ## Trademarks
 Usage of trademarks is not recommended without permission from the trademark holder. This includes Scratch
@@ -149,4 +168,5 @@ mascots such as Scratch Cat, Gobo, Giga, Nano, Tera, and Pico.
 ## Contacting AmpMod
 You can contact AmpMod developers through their Scratch profile or ask questions on the
 [AmpMod forums](https://ampmod.flarum.cloud) or the [AmpMod forum topic on Scratch](https://scratch.mit.edu/discuss/topic/806311/).
-For legal questions, please consult a lawyer.
+For legal questions, please consult a lawyer. Note that AmpMod itself is a community project, and does not
+have a legal team.

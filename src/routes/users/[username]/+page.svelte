@@ -5,6 +5,7 @@
 	import ProjectList from '$components/project-list/ProjectList.svelte';
 	import Modal from '$components/modal/Modal.svelte';
 	import AppleCatRankup from './apple-cat-rankup.svg';
+	import { UsersIcon, CircleFadingArrowUp } from '@lucide/svelte';
 	import { isLoggedIn, username } from '$stores/session';
 
 	let userData = $state<{
@@ -14,11 +15,10 @@
 		joindate: number;
 		rank: number;
 		linked_accounts: { scratch?: string; github?: string };
-		isFollowing?: boolean;
-		is_admin?: boolean;
+		is_following?: boolean;
 	} | null>(null);
 
-	const rankNames = $state({ 0: 'New AmpModder', 1: 'AmpModder', 2: 'Administrator' });
+	const rankNames = $state({ 0: 'New AmpModder', 1: 'AmpModder', 2: 'Moderator', 3: 'Operator' });
 	let error = $state<string | null>(null);
 	let showRankUpModal = $state(false);
 
@@ -63,8 +63,7 @@
 	const toggleFollow = async () => {
 		if (!userData) return;
 		await new Promise((r) => setTimeout(r, FAKE_DELAY));
-		userData.isFollowing = !userData.isFollowing;
-		console.log(userData.isFollowing ? 'Followed' : 'Unfollowed');
+		userData.is_following = !userData.is_following;
 	};
 </script>
 
@@ -80,17 +79,17 @@
 				<h1>{userData.name}</h1>
 				<p class="meta">
 					{rankNames[userData.rank] || 'Unknown Rank'}
-					{#if userData.rank === 0}
-						<a href="#" class="rank-up" on:click|preventDefault={openRankUpModal}>(rank up)</a>
-					{/if}
 					| Joined
 					<span titleContent={formatDate(userData.joindate)}>{getTimeAgo(userData.joindate)}</span>
+					{#if userData.rank === 0}
+						| <a href="#" class="rank-up" on:click|preventDefault={openRankUpModal}><CircleFadingArrowUp size=14 strokeWidth=3 /> Rank up</a>
+					{/if}
 				</p>
 			</div>
 			<div class="actions">
 				{#if isLoggedIn && userData.name != $username}
-				<button class={`follow ${userData.isFollowing ? 'unfollow' : ''}`} on:click={toggleFollow}>
-					{userData.isFollowing ? 'Unfollow' : 'Follow'}
+				<button class={`follow ${userData.is_following ? 'unfollow' : ''}`} on:click={toggleFollow}>
+					{userData.is_following ? 'Unfollow' : 'Follow'}
 				</button>
 				{/if}
 			</div>
@@ -130,7 +129,7 @@
 		max-width: 1000px;
 		margin: 16px auto;
 		border-radius: 8px;
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-family: var(--font-stack);
 	}
 	.header {
 		display: flex;
@@ -277,11 +276,11 @@
 		height: auto;
 	}
 	.error {
-		color: red;
+		color: var(--error-text);
 		text-align: center;
 		padding: 1rem;
-		background-color: #ffe0e0;
-		border: 1px solid #ffb3b3;
+		background-color: var(--error-background);
+		border: 1px solid var(--error-border);
 		border-radius: 5px;
 		margin-top: 1rem;
 	}

@@ -1,6 +1,7 @@
 <script>
 	import { username } from '$stores/session';
 	import { goto } from '$app/navigation';
+	import { User, FolderOpen, FilePlus2 } from '@lucide/svelte';
 </script>
 
 <div class="container">
@@ -10,15 +11,15 @@
 	<h1 class="greeting">Hello, {$username}!</h1>
 	<div class="navigation">
 		<button class="nav-button rounded-left" on:click={() => goto('/')}>
-			<span class="nav-icon"> c </span>
+			<span class="nav-icon"><FilePlus2 /></span>
 			<span class="nav-text">Create</span>
 		</button>
 		<button class="nav-button square" on:click={() => goto('/mystuff')}>
-			<span class="nav-icon"> ms </span>
+			<span class="nav-icon"><FolderOpen /></span>
 			<span class="nav-text">My Stuff</span>
 		</button>
 		<button class="nav-button rounded-right" on:click={() => goto(`/users/${$username}`)}>
-			<span class="nav-icon"> p </span>
+			<span class="nav-icon"><User /></span>
 			<span class="nav-text">Profile</span>
 		</button>
 	</div>
@@ -30,7 +31,7 @@
 		flex-direction: column;
 		align-items: center;
 		padding: 20px;
-		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-family: var(--font-stack);
 	}
 
 	.icon-container {
@@ -63,14 +64,14 @@
 		justify-content: center;
 		width: 70px; /* Slightly reduced width to accommodate tighter gap */
 		height: 70px; /* Slightly reduced height to match width */
-		border: 1px solid #ccc;
-		background-color: #f9f9f9;
+		border: 1px solid var(--border-color);
+		background-color: var(--footer-background);
 		cursor: pointer;
 		border-radius: 35px; /* Make them round */
 	}
 
 	.nav-button:active {
-		background-color: #eee;
+		transform: scale(0.95);
 	}
 
 	.rounded-left {
@@ -94,11 +95,11 @@
 	.nav-icon {
 		font-size: 1.5em;
 		margin-bottom: 5px;
-		color: #555;
+		color: var(--text-color);
 	}
 
 	.nav-text {
 		font-size: 0.8em;
-		color: #555;
+		color: var(--text-color);
 	}
 </style>

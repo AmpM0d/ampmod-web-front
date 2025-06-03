@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { isLoggedIn } from '$stores/session';
+	import { Cat } from '@lucide/svelte';
 
 	let username: string = '';
 	let password: string = '';
@@ -98,7 +99,7 @@
 				<div class="label-with-link">
 					<label for="username">Username</label>
 					<a href="" class="scratch-link" on:click|preventDefault={loginWithScratch}
-						>🐱 Join with Scratch</a
+						><Cat size=18 /> Join with Scratch</a
 					>
 				</div>
 				<input id="username" type="text" bind:value={username} required />

@@ -58,7 +58,7 @@
     }
   
     .modal-content {
-      background-color: white;
+      background-color: var(--footer-background);
       border-radius: 8px;
       text-align: center;
       max-width: 500px;

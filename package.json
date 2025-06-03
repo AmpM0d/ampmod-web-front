@@ -25,6 +25,7 @@
 		"@sveltejs/vite-plugin-svelte": "^5.0.0",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
+		"@turbowarp/types": "^0.0.13",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^3.0.0",
@@ -42,16 +43,20 @@
 		"vitest": "^3.0.0"
 	},
 	"dependencies": {
-		"@inlang/paraglide-js": "^2.0.0",
+		"@lucide/lab": "^0.1.2",
+		"@lucide/svelte": "^0.511.0",
 		"@types/node": "^22.14.1",
 		"@types/webfontloader": "^1.6.38",
 		"bad-words": "^4.0.0",
+		"dompurify": "^3.2.6",
+		"lucide": "^0.511.0",
+		"lucide-svelte": "^0.511.0",
 		"mdast-util-inline-spoiler": "^1.0.0",
 		"micromark-extension-inline-spoiler": "^1.0.0",
 		"nedb": "^1.8.0",
 		"normalize.css": "^8.0.1",
 		"remark-inline-spoiler": "^1.0.1",
-		"scratchblocks": "^3.6.4",
+		"scaffolding": "https://codeberg.org/ampmod/scaffolding/archive/master-builds.tar.gz",
 		"webfontloader": "^1.6.28"
 	}
 }

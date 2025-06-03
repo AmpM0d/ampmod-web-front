@@ -6,10 +6,10 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: #28a745;
+        background-color: var(--accent-color);
         color: white;
         padding: 3em 12em;
-        font-family: "Pixelify Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: "Pixelify Sans", var(--font-stack);
     }
 
     .hero-content {
