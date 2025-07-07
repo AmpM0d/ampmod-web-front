@@ -36,11 +36,9 @@
 </script>
 
 <div class="container" class:dark={$theme === 'dark'}>
-    <Header />
     <main>
         {@render children()}
     </main>
-    <Footer />
 </div>
 
 <style>

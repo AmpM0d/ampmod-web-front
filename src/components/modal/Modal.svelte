@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { fade } from 'svelte/transition';
+    import { X } from '@lucide/svelte';
     let {
       show = true,
       closeOnOutsideClick = true,
@@ -28,13 +30,13 @@
   </script>
   
   {#if show}
-    <div class="modal-overlay" on:click={handleOutsideClick}>
+    <div class="modal-overlay" onclick={handleOutsideClick} transition:fade>
       <div class="modal-content">
         <div class="modal-header">
           <div class="modal-title">
             {titleContent ?? titleContent}
           </div>
-          <button class="close-button" on:click={close}> × </button>
+          <button class="close-button" onclick={close}><X /></button>
         </div>
         <div class="modal-body">
           {@render children?.()}

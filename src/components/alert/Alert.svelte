@@ -62,7 +62,7 @@
         background: var(--alert-fg-param);
         color: var(--alert-bg-param);
         border: none;
-        padding: 10px 15px;
+        padding: 10px 20px;
         cursor: pointer;
         font-size: 14px;
         font-weight: bold;

@@ -19,11 +19,7 @@
 	.mdsvex-page :global a {
 		color: #59C059;
 		text-decoration: none;
-        font-weight: bold;
 	}
-    .mdsvex-page :global a:hover {
-        filter: brightness(0.9);
-    }
 </style>
 <div class="mdsvex-page">
     {@render children()}

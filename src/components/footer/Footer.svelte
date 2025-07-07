@@ -1,3 +1,16 @@
+<script>
+  let width = $state(null); // Start with null so we know when it's ready
+
+  $effect(() => {
+    // This only runs in the browser, so it's safe
+    const update = () => width = window.innerWidth;
+    update(); // set initial width
+
+    window.addEventListener('resize', update);
+
+    return () => window.removeEventListener('resize', update); // cleanup
+  });
+</script>
 <style>
 	footer {
 		background-color: var(--footer-background);
@@ -13,7 +26,10 @@
 
 	.footer-columns {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+		grid-auto-flow: column; /* Force horizontal flow */
+		grid-auto-columns: minmax(150px, auto); /* Minimum 150px width */
+		overflow-x: hidden; /* Optional: Scroll instead of wrap */
+		white-space: nowrap; /* Optional: Helpful for inline elements */
 		gap: 20px;
 		margin-bottom: 20px;
 		max-width: 900px;
@@ -82,41 +98,64 @@
 </style>
 
 <footer>
-	<div class="footer-columns">
-		<div class="footer-column">
-			<h4>Community</h4>
-			<ul>
-				<li><a href="https://ampmod.flarum.cloud">Discussion Forums</a></li>
-				<li><a class="disabled" title="Not available yet">Statistics</a></li>
-			</ul>
+	{#if width !== null && width > 800}
+		<div class="footer-columns">
+			<div class="footer-column">
+				<h4>Community</h4>
+				<ul>
+					<li><a href="/">Front Page</a></li>
+					<li><a href="https://ampmod.flarum.cloud">Discussion Forums</a></li>
+					<li><a href="https://ampmod.flarum.cloud/blog">Blog</a></li>
+					<li><a class="disabled" title="Not available yet">Statistics</a></li>
+				</ul>
+			</div>
+			<div class="footer-column">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="/about">About</a></li>
+					<li><a href="https://ampmod.miraheze.org/">AmpMod Wiki</a></li>
+					<li><a href="https://codeberg.org/AmpMod">Source code</a></li>
+					<li><a href="https://ampmod.codeberg.page/manual">Manual</a></li>
+					<li><a class="disabled" title="Not available yet">FAQ</a></li>
+					<li><a href="/mirrors">Mirrors</a></li>
+				</ul>
+			</div>
+			<div class="footer-column">
+				<h4>Guidelines</h4>
+				<ul>
+					<li><a href="/proj-guidelines">Uploading Guidelines</a></li>
+					<li><a href="/terms">Terms of Use</a></li>
+					<li><a href="#">Privacy Policy</a></li>
+				</ul>
+			</div>
+			<div class="footer-column">
+				<h4>Donate</h4>
+				<ul>
+					<li><a href="https://github.com/sponsors/GarboMuffin">Donate to TurboWarp</a></li>
+					<li><a href="https://www.scratchfoundation.org/donate">Donate to Scratch</a></li>
+				</ul>
+			</div>
 		</div>
-		<div class="footer-column">
-			<h4>Resources</h4>
-			<ul>
-				<li><a href="/about">About</a></li>
-				<li><a href="https://ampmod.miraheze.org/">AmpMod Wiki</a></li>
-				<li><a href="https://codeberg.org/AmpMod">Source code</a></li>
-				<li><a href="https://codeberg.org/AmpMod/dev-docs/wiki">Dev docs</a></li>
-				<li><a class="disabled" title="Not available yet">FAQ</a></li>
-				<li><a href="/mirrors">Mirrors</a></li>
-			</ul>
+	{:else}
+		<div class="footer-columns">
+			<div class="footer-column">
+				<ul>
+					<li><a href="https://ampmod.flarum.cloud">Forums</a></li>
+					<li><a href="https://ampmod.flarum.cloud/blog">Blog</a></li>
+					<li><a href="https://ampmod.codeberg.page/manual">Manual</a></li>
+					<li><a href="https://ampmod.miraheze.org">Wiki</a></li>
+				</ul>
+			</div>
+			<div class="footer-column">
+				<ul>
+					<li><a href="/about">About</a></li>
+					<li><a href="/proj-guidelines">Guidelines</a></li>
+					<li><a href="/terms">Terms of Use</a></li>
+					<li><a href="/privacy">Privacy Policy</a></li>
+				</ul>
+			</div>
 		</div>
-		<div class="footer-column">
-			<h4>Guidelines</h4>
-			<ul>
-				<li><a href="/proj-guidelines">Uploading Guidelines</a></li>
-				<li><a href="/terms">Terms of Use</a></li>
-				<li><a href="#">Privacy Policy</a></li>
-			</ul>
-		</div>
-		<div class="footer-column">
-			<h4>Donate</h4>
-			<ul>
-				<li><a href="https://github.com/sponsors/GarboMuffin">Donate to TurboWarp</a></li>
-				<li><a href="https://www.scratchfoundation.org/donate">Donate to Scratch</a></li>
-			</ul>
-		</div>
-	</div>
+	{/if}
 
 	<div class="language-select">
 		<select>

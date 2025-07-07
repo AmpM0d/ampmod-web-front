@@ -31,19 +31,26 @@
 	}
 	.user {
 		display: flex;
+		flex-direction: column;
 		align-items: center;
-		width: 300px;
-		padding: 4px;
-		border-radius: 4px;
-		font-size: 1.25rem;
+		width: 74px;
+		padding: 16px 64px;
+		border-radius: 8px;
 		color: inherit !important;
 		text-decoration: none;
 		transition: background 0.2s;
+		text-overflow: ellipsis;
+		font-size: 0.75rem;
+		text-align: center;
+		white-space: nowrap;  /* Prevents text from wrapping */
+		overflow: hidden;     /* Hides any content that overflows the box */
+		text-overflow: ellipsis; /* Displays an ellipsis (...) for truncated text */
 	}
 	.user:hover {
-		background: rgba(0, 0, 0, 0.1);
+		background: var(--footer-background);
 	}
 	.user img {
-		margin-right: 12px;
+		border-radius: 4px;
+		margin-bottom: 8px;
 	}
 </style>

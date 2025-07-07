@@ -7,7 +7,7 @@
 <style>
     .about-page {
         min-height: 100vh;
-        font-family: Arial, sans-serif;
+        font-family: var(--font-stack);
         margin-bottom: 2em;
     }
 
@@ -273,7 +273,7 @@
         <h2>Contribute to AmpMod!</h2>
         <div class="call-to-action-table">
             <div class="call-to-action-row">
-                <a class="cta-btn" href="https://codeberg.org/ampmod/dev-docs/wiki" target="_blank" rel="noopener noreferrer"><BookOpenText /> Read Dev Docs</a>
+                <a class="cta-btn" href="https://ampmod.codeberg.page/manual/dev" target="_blank" rel="noopener noreferrer"><BookOpenText /> Read Dev Docs</a>
                 <div class="cta-desc">If you want to contribute to AmpMod, create extensions, or create your own fork of AmpMod, read the developer documentation to find out more!</div>
             </div>
             <div class="call-to-action-row">
@@ -281,8 +281,8 @@
                 <div class="cta-desc">Browse the source code and submit pull requests on our Codeberg repositories. All contributions are welcome, and you may receive a badge on the forums for your contribution!</div>
             </div>
             <div class="call-to-action-row">
-                <a class="cta-btn" href="https://ampmod.flarum.cloud/t/suggestions" target="_blank" rel="noopener noreferrer"><Lightbulb /> Have ideas?</a>
-                <div class="cta-desc">Even if you don't know how to program in web technologies or use Git, you are welcome to make suggestions to improve AmpMod.</div>
+                <a class="cta-btn" href="https://ampmod.flarum.cloud/t/suggestions" target="_blank" rel="noopener noreferrer"><Lightbulb /> Suggest Features</a>
+                <div class="cta-desc">Even if you don't know how to program in web technologies or use Git, you are welcome to make suggestions to improve AmpMod. </div>
             </div>
         </div>
     </div>

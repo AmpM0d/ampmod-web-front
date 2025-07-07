@@ -4,15 +4,17 @@
 	import { page } from '$app/state';
 	import { theme } from '$stores/theme';
 	let { children } = $props();
+	import Header from '$components/header/Header.svelte';
+	import Footer from '$components/footer/Footer.svelte';
 	import 'normalize.css';
 
-	if (!import.meta.env.DEV) {
-		console.log(
-			'%cHACKER ALERT!',
+	if (true) {
+		console.warn(
+			'%cSCAM ALERT! Do NOT paste anything into the console!',
 			"color: red; font-size: 3em; font-weight: bold; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
 		);
 		console.log(
-			"%cDo NOT paste anything into the console that someone you don't know asked you to! They can log in to your account, create inappropriate projects, delete your legitimate projects, and get your account banned!",
+			"%cDo NOT paste anything into the console that someone you don't know asked you to! They can log in to your account, create inappropriate projects, delete your legitimate projects, and get your account banned! If you don't know what JavaScript is, exit now.",
 			"font-size: 18px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;"
 		);
 	}
@@ -34,9 +36,13 @@
 </script>
 
 <div class="container" class:dark={$theme === 'dark'}>
+    <Footer />
+    <Header />
     <main>
+        THIS IS A MODIFIED LAYOUT
         {@render children()}
     </main>
+    <Footer />
 </div>
 
 <style>

@@ -8,16 +8,17 @@
         justify-content: space-between;
         background-color: var(--accent-color);
         color: white;
-        padding: 3em 12em;
-        font-family: "Pixelify Sans", var(--font-stack);
+        padding: 3em 10%;
+        font-family: var(--font-stack);
+        font-weight: bold;
     }
 
     .hero-content {
-        max-width: 90%;
+        max-width: 95%;
     }
 
     .hero-title {
-        font-size: 1.9em;
+        font-size: 1.8em;
         margin-bottom: 10px;
     }
 
@@ -27,23 +28,23 @@
     }
 
     .hero-button {
-        padding: 8px 16px;
-        font-size: 1rem;
+        padding: 10px 18px;
+        font-size: 1.2rem;
         font-weight: bold;
         border: none;
-        border-radius: 8px;
+        border-radius: 4px;
         cursor: pointer;
         text-decoration: none;
     }
 
     .create-button {
         background-color: white;
-        color: #28a745;
+        color: var(--accent-color);
     }
 
     .join-button {
         /* Less emphasis on the join button */
-        border: 2px white solid;
+        border: 1px white solid;
         color: white;
         background: none;
     }
@@ -89,11 +90,12 @@
 
 <div class="hero">
     <div class="hero-content">
-        <div class="hero-title">Block coding with advanced features<br />
-        Based off Scratch 3 and TurboWarp</div>
+        <div class="hero-title">Program complex games, tools, and more<br />
+        Upload projects for the world to see</div>
         <div class="hero-buttons">
-            <button class="hero-button create-button">Create</button>
+            <a href="https://ampmod.codeberg.page" class="hero-button create-button">Create</a>
             <a href="/join" class="hero-button join-button">Join</a>
+            <a href="/about" class="hero-button join-button">About AmpMod</a>
         </div>
     </div>
     <div class="hero-image">

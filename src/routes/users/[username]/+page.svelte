@@ -14,7 +14,7 @@
 		bio: string;
 		joindate: number;
 		rank: number;
-		linked_accounts: { scratch?: string; github?: string };
+		linked_accounts: { scratch?: string; github?: string, codeberg?: string, wiki?: string, forums?: string };
 		is_following?: boolean;
 	} | null>(null);
 
@@ -79,11 +79,11 @@
 				<h1>{userData.name}</h1>
 				<p class="meta">
 					{rankNames[userData.rank] || 'Unknown Rank'}
+					{#if userData.rank === 0 && userData.name === $username}
+						<button class="rank-up" on:click|preventDefault={openRankUpModal}>(Become an AmpModder)</button>
+					{/if}
 					| Joined
 					<span titleContent={formatDate(userData.joindate)}>{getTimeAgo(userData.joindate)}</span>
-					{#if userData.rank === 0}
-						| <a href="#" class="rank-up" on:click|preventDefault={openRankUpModal}><CircleFadingArrowUp size=14 strokeWidth=3 /> Rank up</a>
-					{/if}
 				</p>
 			</div>
 			<div class="actions">
@@ -108,10 +108,10 @@
 		<ProjectList title="Uploaded projects" />
 
 		{#if showRankUpModal}
-			<Modal on:close={closeRankUpModal} titleContent="Become an AmpModder">
+			<Modal titleContent="Become an AmpModder">
 				<img src={AppleCatRankup} alt="Rank up illustration" draggable={false} class="rankup-img" />
-				<p>AmpModders can use advanced extensions and do other neat stuff New AmpModders can't do!</p>
-				<p>Confirm rank up to AmpModder?</p>
+				<p>Ranking up will grant you more permissions such as using more extensions and proposing projects to be featured!</p>
+				<p><em>Once you rank up, you cannot go back.</em></p>
 				<div class="modal-actions">
 					<button class="primary" on:click={handleRankUp}>Rank up!</button>
 					<button class="secondary" on:click={closeRankUpModal}>Cancel</button>
@@ -158,8 +158,11 @@
 		margin-top: 0.2rem;
 	}
 	.rank-up {
-		color: red;
-		text-decoration: none;
+		appearance: none;
+		background: none;
+		border: none;
+		color: var(--accent-color);
+		cursor: pointer;
 	}
 	.rank-up:hover {
 		text-decoration: underline;
