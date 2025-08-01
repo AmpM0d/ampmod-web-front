@@ -1,5 +1,5 @@
 <script lang="ts">
-    let { id, background = "grey", foreground = "white", children, button = null, icon = null } = $props();
+    let { id, background = "grey", foreground = "white", children, button = null, icon = null, closable = true } = $props();
     import { XIcon, Icon } from '@lucide/svelte';
     import { slide } from 'svelte/transition';
 
@@ -11,7 +11,7 @@
     function removeAlert(id: any) {
         if (typeof window !== 'undefined') {
             const hiddenAlerts = JSON.parse(localStorage.getItem("amwf:hiddenAlerts") || "[]");
-            if (!hiddenAlerts.includes(id)) {
+            if (!hiddenAlerts.includes(id) && closable) {
                 hiddenAlerts.push(id);
                 localStorage.setItem("amwf:hiddenAlerts", JSON.stringify(hiddenAlerts));
             }
@@ -20,78 +20,32 @@
     }
 </script>
 
-<style>
-    .alert {
-        padding: 8px;
-        background: var(--alert-bg-param);
-        color: var(--alert-fg-param);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-family: var(--font-stack);
-    }
-
-    .alert .text-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        vertical-align: center;
-        flex-grow: 1;
-        min-height: 40px; /* Ensures consistent height */
-    }
-
-    .alert .icon-container {
-        margin-right: 10px;
-        display: flex;
-        align-items: center;
-    }
-
-    .alert .close-button {
-        background: none;
-        border: none;
-        color: var(--alert-fg-param);
-        font-size: 16px;
-        cursor: pointer;
-        padding: 0 10px;
-        margin-left: auto;
-    }
-
-    .alert .button {
-        border-radius: 9999px;
-        background: var(--alert-fg-param);
-        color: var(--alert-bg-param);
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        font-size: 14px;
-        font-weight: bold;
-        margin-left: 8px;
-        text-decoration: none;
-    }
-</style>
-
-{#if typeof window !== 'undefined' && !hiddenAlerts.includes(id)}
+{#if typeof window !== 'undefined' && (!hiddenAlerts.includes(id) || !closable)}
     <div
-        class="alert"
-        style="--alert-bg-param: {background}; --alert-fg-param: {foreground};"
+        class="flex items-center justify-between p-2 font-bold transition-all"
+        style="--alert-bg-param: {background}; --alert-fg-param: {foreground}; background: var(--alert-bg-param); color: var(--alert-fg-param);"
         out:slide={{ duration: 400 }}
     >
-        <div class="text-container">
+        <div class="flex items-center flex-grow justify-center min-h-[40px]">
             {#if icon}
-                <div class="icon-container">
+                <div class="mr-2 flex items-center">
                     <Icon iconNode={icon} />
                 </div>
             {/if}
-            {@render children()}
+            <div class="block">
+                {@render children()}
+            </div>
             {#if button}
-                <a href={button.uri} class="button">
-                    {button.text}
+                <a href={button.uri} class="ml-2 px-4 py-2 rounded-full font-bold text-sm cursor-pointer no-underline" style="background: var(--alert-fg-param); color: var(--alert-bg-param);">
+                    <span class="sr-only">{@render children()} </span>{button.text}
                 </a>
             {/if}
         </div>
-        <button class="close-button" onclick={() => removeAlert(id)}>
-            <XIcon />
-        </button>
+        {#if closable}
+            <button class="ml-auto px-2 text-lg cursor-pointer" style="background: none; border: none; color: var(--alert-fg-param);" onclick={() => removeAlert(id)}>
+                <XIcon />
+                <span class="sr-only">Close alert</span>
+            </button>
+        {/if}
     </div>
 {/if}

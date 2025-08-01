@@ -1,17 +1,7 @@
 <script lang="ts">
     import Users from './Users.svelte';
     import appleCat from './apple-cat-pleased.svg';
-    import userList from './users';
-	function shuffle(list: any[]) {
-		/* for (let i = list.length - 1; i > 0; i--) {
-			const random = Math.floor(Math.random() * (i + 1));
-			const tmp = list[i];
-			list[i] = list[random];
-			list[random] = tmp;
-		}
-		return list; */
-        return list
-	};
+    export let data;
 </script>
 
 # AmpMod Credits
@@ -42,19 +32,19 @@ AmpMod uses code from other open-source Scratch modifications but is not endorse
 
 ## Favicon
 
-The AmpMod favicon is from the [Forumoji](https://gh.vercte.net/forumoji/) project by [lolecksdeehaha](https://scratch.mit.edu/users/lolecksdeehaha/).
+The AmpMod favicon is from the [Forumoji](https://gh.vercte.net/forumoji/) project by [lolecksdeehaha](https://scratch.mit.edu/@lolecksdeehaha/).
 
 ## Contributors
-<Users users={shuffle(userList.ubContributors)} />
+<Users users={data.ubContributors} />
 
 ## TurboWarp Contributors
-<Users users={shuffle(userList.contributors)} />
+<Users users={data.contributors} />
 
 ## Addons
-<Users users={shuffle(userList.addonDevelopers)} />
+<Users users={data.addonDevelopers} />
 
 ## TurboWarp Extension Gallery
-<Users users={shuffle(userList.extensionDevelopers)} />
+<Users users={data.extensionDevelopers} />
 
 ## Fonts
 

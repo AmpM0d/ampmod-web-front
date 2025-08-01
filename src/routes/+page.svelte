@@ -4,23 +4,41 @@
 	import Intro from '$components/intro/Intro.svelte';
 	import ProjectList from '$components/project-list/ProjectList.svelte';
 	import { isLoggedIn } from '$stores/session';
-	import { Heart, Bug, TriangleAlert } from 'lucide';
+	import { Heart, Cat, TriangleAlert } from 'lucide';
+	function isAprilFoolsDay(): boolean {
+        const today = new Date();
+        return today.getMonth() === 3 && today.getDate() === 1; // Month 3 is April (0-indexed)
+    }
+	function getYearsSince2025() {
+	const currentYear = new Date().getFullYear();
+	return currentYear - 2025;
+	}
 </script>
 
 <svelte:head>
 	<title>AmpMod - An advanced programming language</title>
 </svelte:head>
 
+{#if isAprilFoolsDay()}
+	<Alert
+		id={`april-fools-${getYearsSince2025()}`}
+		icon={TriangleAlert}
+		background="#ff1500"
+	>
+		There never was an AmpMod. It was LampMod the whole time. You are dreaming. Please exit your dream.
+	</Alert>
+{/if}
 <Alert
 	id="amwfbeta-1"
 	button={{
 		uri: 'https://ampmod.flarum.cloud/t/bugs-and-glitches',
-		text: 'Report a bug'
+		text: 'Report bugs'
 	}}
-	icon={Bug}
+	icon={TriangleAlert}
 	background="#ff4d4d"
+	closable={false}
 >
-	The AmpMod website is in alpha, and there will certainly be bugs. Please report any bugs you encounter.
+	The ampmod-web project is in alpha. Please report any bugs or glitches you find.
 </Alert>
 <Alert
 	id="please-contribute"
@@ -31,7 +49,7 @@
 	icon={Heart}
 	background="#855cd6"
 >
-	If you have at least some knowledge of JavaScript and Git, please consider contributing to AmpMod.
+	AmpMod is in your hands. We accept your contributions to help the project!
 </Alert>
 
 {#if $isLoggedIn}
@@ -46,7 +64,8 @@
 {/if}
 <ProjectList title="Featured projects" />
 <ProjectList title="Top liked projects" />
-<ProjectList title="Most recently approved projects" />
+<ProjectList title="Projects from #tag" />
+<ProjectList title="Most recent projects" />
 
 <style>
 	.intro-layout {

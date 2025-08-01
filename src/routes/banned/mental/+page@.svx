@@ -1,7 +1,7 @@
-***If you are in immediate danger, please call your local emergency services. Also, please do not publicly ask for mental health assistance. Please privately use the resources available in your country.***
-
-You may be coming here from a page saying you have been banned for "expressing thoughts of self-harm". Why, you ask?
-At AmpMod, we care about your well-being. If you're going through a difficult time or need someone to talk to, please know that you're not alone and there are resources available to help. This page provides links to organizations that can offer support and guidance.
+---
+title: Mental Health Resources
+subtitle: If you are in immediate danger, please call your local emergency services. Also, please do not publicly ask for mental health assistance. Please privately use the resources available in your country.
+---
 
 ## United States (USA)
 

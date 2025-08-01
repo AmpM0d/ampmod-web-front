@@ -4,7 +4,7 @@ const fromHardcoded = ({userID = '0', username}) => {
         text: username
     };
     if (username && userID !== '0') {
-        result.href = `https://scratch.mit.edu/users/${username}/`;
+        result.href = `https://scratch.mit.edu/@${username}/`;
     }
     return result;
 };

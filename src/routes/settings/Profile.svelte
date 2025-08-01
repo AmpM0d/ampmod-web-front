@@ -36,30 +36,32 @@
     }
 </script>
 
-<h3>Information</h3>
-<div class="user-info-header">
-    <div class="avatar-container" on:click={onAvatarClick}>
-        <img src={avatarUrl} alt="User Icon" class="avatar" />
+<h3 class="text-xl font-semibold mb-4">Information</h3>
+<div class="flex items-center gap-4 mb-4">
+    <div class="relative w-20 h-20 cursor-pointer" on:click={onAvatarClick}>
+        <img src={avatarUrl} alt="User Icon" class="w-full h-full object-cover rounded" />
         {#if uploading}
-            <div class="uploading-overlay"><Spinner colour="#fff" /></div>
+            <div class="absolute inset-0 rounded bg-black/40 flex items-center justify-center">
+                <Spinner colour="#fff" />
+            </div>
         {:else}
-            <div class="overlay">
+            <div class="absolute inset-0 rounded bg-black/40 text-white opacity-0 hover:opacity-100 flex items-center justify-center">
                 <Pencil />
             </div>
         {/if}
     </div>
-    <h1>{$username}</h1>
+    <h1 class="text-3xl font-bold">{$username}</h1>
 </div>
 
 <input
     type="file"
     accept="image/*"
-    class="hidden-file"
+    class="hidden"
     on:change={fileChanged}
     bind:this={fileInput}
 />
 
-<h3>Visibility</h3>
+<h3 class="text-xl font-semibold mb-4">Visibility</h3>
 <ToggleSwitch id="private-toggle" bind:checked={privateToggle}>
     Make my profile private
 </ToggleSwitch>
@@ -72,64 +74,3 @@
         </ToggleSwitch>
     </div>
 {/if}
-
-<style>
-    .user-info-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1rem;
-    }
-
-    .avatar-container {
-        position: relative;
-        width: 80px;
-        height: 80px;
-        cursor: pointer;
-    }
-
-    .avatar {
-        width: 100%;
-        height: 100%;
-        object-fit: stretch;
-        border-radius: 4px;
-    }
-
-    .overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 4px;
-        background: rgba(0, 0, 0, 0.4);
-        color: #fff;
-        opacity: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        pointer-events: none;
-    }
-
-    .avatar-container:hover .overlay {
-        opacity: 1;
-    }
-
-    .uploading-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 4px;
-        background: rgba(0, 0, 0, 0.5);
-        color: #fff;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .hidden-file {
-        display: none;
-    }
-</style>

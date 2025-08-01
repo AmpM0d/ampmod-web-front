@@ -1,105 +1,81 @@
 <script>
-	import { username } from '$stores/session';
-	import { goto } from '$app/navigation';
-	import { User, FolderOpen, FilePlus2 } from '@lucide/svelte';
+    // Assuming these imports are correctly configured for your SvelteKit project
+    import { username } from '$stores/session';
+    import { goto } from '$app/navigation';
+    import { User, FolderOpen, FilePlus2 } from '@lucide/svelte'; // Corrected import for Lucide icons in Svelte
 </script>
+<div class="flex flex-col items-center p-5">
+    <!--
+        A placeholder logo/initials display.
+        Styled with a dashed border and rounded corners.
+        Includes dark mode styling for border and text color.
+    -->
+    <div class="mb-5 w-[60px] h-[60px] border-2 border-dashed border-gray-300 flex justify-center items-center text-xl text-gray-500 rounded-md dark:border-gray-600 dark:text-gray-400">
+        <span>AM</span>
+    </div>
 
-<div class="container">
-	<div class="icon-container">
-		<span>AM</span>
-	</div>
-	<h1 class="greeting">Hello, {$username}!</h1>
-	<div class="navigation">
-		<button class="nav-button rounded-left" on:click={() => goto('/')}>
-			<span class="nav-icon"><FilePlus2 /></span>
-			<span class="nav-text">Create</span>
-		</button>
-		<button class="nav-button square" on:click={() => goto('/mystuff')}>
-			<span class="nav-icon"><FolderOpen /></span>
-			<span class="nav-text">My Stuff</span>
-		</button>
-		<button class="nav-button rounded-right" on:click={() => goto(`/users/${$username}`)}>
-			<span class="nav-icon"><User /></span>
-			<span class="nav-text">Profile</span>
-		</button>
-	</div>
+    <!--
+        Greeting heading displaying the username from the Svelte store.
+        Uses Tailwind classes for font size, weight, and margin.
+        Includes dark mode styling for text color.
+    -->
+    <h1 class="text-3xl font-bold mb-8 text-gray-900 dark:text-white">Hello, {$username}!</h1>
+
+    <!--
+        Container for the action buttons, using flexbox for horizontal layout and gap.
+    -->
+    <div class="flex gap-2.5">
+        <!--
+            Create button:
+            - Flex column for icon and text.
+            - Fixed width and height, border, and background.
+            - Cursor pointer and active scale effect for interaction.
+            - Specific rounded corners for the left-most button.
+            - Dark mode styles: darker background, border, and text.
+            - onClick handler to navigate to the create page.
+        -->
+        <button
+            class="flex flex-col items-center justify-center w-[70px] h-[70px] border border-gray-300 bg-gray-100 cursor-pointer active:scale-95 transition-transform duration-100 ease-in-out
+                   rounded-l-full rounded-r-md
+                   dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            on:click={() => goto('/create')}
+        >
+            <span class="text-2xl mb-1.5 text-gray-700 dark:text-gray-200"><FilePlus2 /></span>
+            <span class="text-xs text-gray-700 dark:text-gray-200">Create</span>
+        </button>
+
+        <!--
+            My Stuff button:
+            - Similar styling to the Create button.
+            - Standard rounded corners as it's a middle button.
+            - Dark mode styles applied.
+            - onClick handler to navigate to the my-stuff page.
+        -->
+        <button
+            class="flex flex-col items-center justify-center w-[70px] h-[70px] border border-gray-300 bg-gray-100 cursor-pointer active:scale-95 transition-transform duration-100 ease-in-out
+                   rounded-md
+                   dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            on:click={() => goto('/my-stuff')}
+        >
+            <span class="text-2xl mb-1.5 text-gray-700 dark:text-gray-200"><FolderOpen /></span>
+            <span class="text-xs text-gray-700 dark:text-gray-200">My Stuff</span>
+        </button>
+
+        <!--
+            Profile button:
+            - Similar styling to the other buttons.
+            - Specific rounded corners for the right-most button.
+            - Dark mode styles applied.
+            - onClick handler to navigate to the profile page.
+        -->
+        <button
+            class="flex flex-col items-center justify-center w-[70px] h-[70px] border border-gray-300 bg-gray-100 cursor-pointer active:scale-95 transition-transform duration-100 ease-in-out
+                   rounded-r-full rounded-l-md
+                   dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            on:click={() => goto('/profile')}
+        >
+            <span class="text-2xl mb-1.5 text-gray-700 dark:text-gray-200"><User /></span>
+            <span class="text-xs text-gray-700 dark:text-gray-200">Profile</span>
+        </button>
+    </div>
 </div>
-
-<style>
-	.container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 20px;
-		font-family: var(--font-stack);
-	}
-
-	.icon-container {
-		margin-bottom: 20px;
-		width: 60px;
-		height: 60px;
-		border: 2px dotted #ccc; /* Dotted border for the square */
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		font-size: 1.5em;
-		color: #777;
-	}
-
-	.greeting {
-		font-size: 2em;
-		font-weight: bold;
-		margin-bottom: 30px;
-	}
-
-	.navigation {
-		display: flex;
-		gap: 10px; /* Reduced gap */
-	}
-
-	.nav-button {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		width: 70px; /* Slightly reduced width to accommodate tighter gap */
-		height: 70px; /* Slightly reduced height to match width */
-		border: 1px solid var(--border-color);
-		background-color: var(--footer-background);
-		cursor: pointer;
-		border-radius: 35px; /* Make them round */
-	}
-
-	.nav-button:active {
-		transform: scale(0.95);
-	}
-
-	.rounded-left {
-		border-top-left-radius: 50%;
-		border-bottom-left-radius: 50%;
-		border-top-right-radius: 5px;
-		border-bottom-right-radius: 5px;
-	}
-
-	.square {
-		border-radius: 5px;
-	}
-
-	.rounded-right {
-		border-top-right-radius: 50%;
-		border-bottom-right-radius: 50%;
-		border-top-left-radius: 5px;
-		border-bottom-left-radius: 5px;
-	}
-
-	.nav-icon {
-		font-size: 1.5em;
-		margin-bottom: 5px;
-		color: var(--text-color);
-	}
-
-	.nav-text {
-		font-size: 0.8em;
-		color: var(--text-color);
-	}
-</style>

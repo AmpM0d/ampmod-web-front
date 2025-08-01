@@ -1,105 +1,61 @@
 <script lang="ts">
-    export let tabs: { label: string, content: any }[] = [];
-    export let active = 0;
-    $: setActive = (i: number) => active = i;
+  // Declare component props using $props()
+  let {
+    tabs = [], // Initialize with an empty array if not provided
+    active = 0, // Initialize with 0 if not provided
+  } = $props<{ tabs: { label: string; content: any }[]; active?: number }>();
+
+  // A regular function is generally preferred for clarity over a reactive statement for simple assignments.
+  // It achieves the same reactivity because 'active' is now a $props variable.
+  const setActive = (i: number) => {
+    active = i;
+  };
+
+  // If 'active' was *internal* component state that only this component managed,
+  // you would declare it with $state():
+  // let active = $state(0);
+  // In your current setup, it's an exported prop, so updating it here
+  // will reflect changes back to the parent if two-way binding is used,
+  // or it will just update the prop's value within this component instance.
 </script>
 
-<div class="left-tabbed">
-    <div class="tab-list">
-        {#each tabs as tab, i}
-            <button
-                class="tab {active === i ? 'active' : ''}"
-                on:click={() => setActive(i)}
-                tabindex={active === i ? 0 : -1}
-            >
-                {tab.label}
-            </button>
-        {/each}
-    </div>
-    <div class="tab-content">
-        {#if tabs[active]}
-            {#if typeof tabs[active].content === 'string'}
-                <div>{@html tabs[active].content}</div>
-            {:else}
-                <svelte:component this={tabs[active].content} />
-            {/if}
-        {/if}
-    </div>
+<div class="flex flex-col md:flex-row min-h-[600px] overflow-hidden">
+  <div class="flex flex-row md:flex-col min-w-60 py-2 mr-2 overflow-x-scroll">
+    {#each tabs as tab, i}
+      <button
+        class="
+                    flex-1 md:flex-none
+                    bg-transparent outline-none text-center md:text-left
+                    px-4 py-2 md:px-6 md:py-4
+                    text-lg md:text-xl
+                    border
+                    text-text cursor-pointer transition-(colors, font-weight) ease-in-out duration-200
+                    dark:text-text-dark
+                    hover:bg-accent-secondary/10 hover:text-accent
+                    focus:bg-accent-secondary/10 focus:text-accent
+                    aria-selected:bg-footer aria-selected:text-accent aria-selected:border-accent font-light aria-selected:font-medium
+                    dark:hover:bg-accent-secondary/10 dark:focus:bg-accent-secondary/10
+                    dark:aria-selected:bg-footer-dark dark:aria-selected:text-accent-dark dark:aria-selected:border-accent-dark dark:aria-selected:font-bold
+                    m-2 rounded-lg border-border dark:border-border-dark
+                "
+        onclick={() => setActive(i)}
+        tabindex={active === i ? 0 : -1}
+        aria-selected={active === i}
+        role="tab"
+      >
+        {tab.label}
+      </button>
+    {/each}
+  </div>
+  <div
+    class="flex-1 p-8 text-text dark:text-text-dark bg-footer dark:bg-footer-dark min-w-0 rounded-lg border border-border dark:border-border-dark"
+  >
+    {#if tabs[active]}
+      {#if typeof tabs[active].content === 'string'}
+        <div>{@html tabs[active].content}</div>
+      {:else}
+        {@render tabs[active].content()}
+      {/if}
+    {/if}
+  </div>
 </div>
-
-<style>
-    .left-tabbed {
-        display: flex;
-        background: var(--footer-background);
-        border-radius: 12px;
-        border: 1px solid var(--border-color);
-        font-family: var(--font-stack);
-        min-height: 300px;
-        overflow: hidden;
-    }
-
-    .tab-list {
-        display: flex;
-        flex-direction: column;
-        background: var(--background-color);
-        border-right: 1px solid var(--border-color);
-        min-width: 180px;
-        padding: 0.5em 0;
-    }
-
-    .tab {
-        background: none;
-        border: none;
-        outline: none;
-        text-align: left;
-        padding: 1em 1.5em;
-        font-size: 1.05em;
-        color: var(--text-color);
-        cursor: pointer;
-        transition: background 0.15s, color 0.15s;
-        border-left: 4px solid transparent;
-        font-family: inherit;
-    }
-
-    .tab:hover, .tab:focus {
-        background: rgba(89, 192, 89, 0.07);
-        color: var(--accent-color);
-    }
-
-    .tab.active {
-        background: var(--footer-background);
-        color: var(--accent-color);
-        border-left: 4px solid var(--accent-color);
-        font-weight: bold;
-    }
-
-    .tab-content {
-        flex: 1 1 0;
-        padding: 2em;
-        color: var(--text-color);
-        background: var(--footer-background);
-        min-width: 0;
-        font-size: 1em;
-    }
-
-    @media (max-width: 700px) {
-        .left-tabbed {
-            flex-direction: column;
-        }
-        .tab-list {
-            flex-direction: row;
-            border-right: none;
-            border-bottom: 1px solid var(--border-color);
-            min-width: 0;
-        }
-        .tab {
-            border-left: none;
-            border-bottom: 4px solid transparent;
-            padding: 0.75em 1em;
-        }
-        .tab.active {
-            border-bottom: 4px solid var(--accent-color);
-            border-left: none;
-        }
-    }
-</style>

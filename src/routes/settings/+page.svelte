@@ -1,48 +1,42 @@
 <script lang="ts">
-    import { theme } from '$stores/theme';
-    import LeftTabbed from '$components/tabbed/LeftTabbed.svelte';
-    import Profile from './Profile.svelte';
-    import Account from './Account.svelte';
-    import DangerZone from './Danger.svelte';
-    import { isLoggedIn } from '$stores/session';
-    import { goto } from '$app/navigation';
-	$effect(() => {
-	  if (!$isLoggedIn) {
-		goto('/');
-	  }
-	});
+  import { theme } from '$stores/theme';
+  import Banner from '$components/banner/Banner.svelte';
+  import LeftTabbed from '$components/tabbed/LeftTabbed.svelte';
+  import Profile from './Profile.svelte';
+  import Account from './Account.svelte';
+  import DangerZone from './Danger.svelte';
+  import Theme from './Theme.svelte';
+  import Access from './Accessibility.svelte';
+  import { isLoggedIn } from '$stores/session';
+  import { goto } from '$app/navigation';
 
-    const tabs = [
-        { label: 'Profile', content: Profile },
-        { label: 'Account', content: Account },
-        { label: 'Danger Zone', content: DangerZone }
-    ];
+  const tabs = [
+    { label: 'Profile', content: Profile },
+    { label: 'Appearance', content: Theme },
+    { label: 'Accessibility', content: Access },
+    { label: 'Account', content: Account },
+    { label: 'Danger Zone', content: DangerZone }
+  ];
+
+  const loggedOutTabs = [
+    { label: 'Appearance', content: Theme },
+    { label: 'Accessibility', content: Access }
+  ];
 </script>
 
 <svelte:head>
-    <title>Settings - AmpMod</title>
+  <title>Settings - AmpMod</title>
 </svelte:head>
 
-<div class="settings-page">
-    <h1 class="settings-title">Settings</h1>
-    {#if $isLoggedIn}
-        <LeftTabbed {tabs} />
-    {/if}
+<Banner text="Settings" subtext="Set preferences for this account." />
+
+<div class="max-w-[1200px] mx-auto mt-10 p-8">
+  {#if $isLoggedIn}
+    <LeftTabbed {tabs} />
+  {:else}
+    <p class="mb-4">
+      More settings are available for logged in users. Click "Log in" in the navbar to show these settings.
+    </p>
+    <LeftTabbed tabs={loggedOutTabs} />
+  {/if}
 </div>
-
-<style>
-    .settings-page {
-        max-width: 900px;
-        margin: 40px auto 0 auto;
-        padding: 2rem;
-        color: var(--text-color);
-        border-radius: 12px;
-        font-family: var(--font-stack);
-    }
-
-    .settings-title {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-        font-weight: bold;
-    }
-</style>

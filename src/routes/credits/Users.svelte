@@ -1,23 +1,30 @@
-<script context="module" lang="ts">
+<script lang="ts">
 	export interface UserProps {
 		image: string;
 		text: string;
 		href?: string;
 	}
-</script>
+	export let users: UserProps[] = [];
 
-<script lang="ts">
-	export let users: {
-		image: string;
-		text: string;
-		href?: string;
-	}[] = [];
+	function handleKey(event: KeyboardEvent, href?: string) {
+		if (href && (event.key === 'Enter' || event.key === ' ')) {
+			window.open(href, '_blank', 'noopener,noreferrer');
+		}
+	}
 </script>
 
 <div class="users">
 	{#each users as user (user.image + user.text)}
-		<a href={user.href} target="_blank" rel="noreferrer" class="user">
-			<img src={user.image} alt="" width="60" height="60" loading="lazy" />
+		<a
+			href={user.href}
+			target="_blank"
+			rel="noreferrer"
+			class="user"
+			tabindex="0"
+			aria-label={user.text}
+			on:keydown={(e) => handleKey(e, user.href)}
+		>
+			<img src={user.image} alt={user.text} width="60" height="60" loading="lazy" />
 			<div>{user.text}</div>
 		</a>
 	{/each}

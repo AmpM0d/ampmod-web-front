@@ -1,13 +1,24 @@
 import { svelteTesting } from '@testing-library/svelte/vite';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig, loadEnv } from 'vite';
+import tailwindcss from '@tailwindcss/vite';
+import imageSizes from 'vite-plugin-image-sizes';
+import { compression } from 'vite-plugin-compression2';
 
 export default defineConfig(({ mode }) => { 
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
     plugins: [
-      sveltekit()
+      tailwindcss(),
+      sveltekit(),
+      imageSizes({
+          addLazyLoading: true,
+      }),
+      compression({
+        threshold: 10240, // Only compress files bigger than 10kb
+        deleteOriginalAssets: true,
+      })
     ],
     define: {
       'import.meta.env.VITE_AMPMOD_WEB_BACK_URL': JSON.stringify(env.AMPMOD_WEB_BACK_URL || 'http://localhost:4333'),

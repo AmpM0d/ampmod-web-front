@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { page } from '$app/state';
-    import Minigame from '$components/minigame/Minigame.svelte';
+    import { page } from '$app/state'; // Use $app/stores for SvelteKit 1.0+
+
     // A mapping of common HTTP status codes to human-readable descriptions
     const statusDescriptions: Record<number, string> = {
-        400: "Bad Request. The server could not understand the request.",
+        400: "The server could not understand the request.",
         401: "Authentication is required and has failed or has not been provided.",
         403: "You do not have permission to access this resource.",
         404: "The requested resource could not be found.",
@@ -22,48 +22,28 @@
         417: "The server cannot meet the requirements of the Expect header.",
         418: "The teapot refuses to brew coffee.",
         429: "You have sent too many requests in a given amount of time.",
-        500: "An error occured on the server's side.",
+        500: "An error occurred on the server's side.",
         501: "The server does not support the functionality required.",
         502: "The server received an invalid response from the upstream server.",
-        503: "The server is currently unable to handle the request.",
+        503: "The server is currently unable to handle the request. AmpMod may be in maintenance mode.",
         504: "The server did not receive a timely response from the upstream server.",
         505: "The server does not support the HTTP protocol version."
     };
 
+    const noContactCodes = [400, 401, 403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417, 418, 429];
+
     // Fallback description if the status code is not in the mapping
-    const description = statusDescriptions[page.status] || "An unexpected error occurred.";
+    const description = statusDescriptions[page.status] || "An unknown error occurred.";
 </script>
 
-<style>
-    .error-page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 8em;
-        text-align: center;
-        font-family: var(--font-stack);
-    }
-
-    .status {
-        font-size: 5rem;
-        font-weight: bold;
-        color: #ff6b6b;
-    }
-
-    .description {
-        font-size: 1.5rem;
-        margin-top: 1rem;
-        color: #333;
-    }
-</style>
-
-<div class="error-page">
-    {#if page.status == 404}
-    <Minigame />
-    {:else}
-    <div class="status">{page.status}</div>
-    {/if}
-    <div class="description">{description}</div>
-    <p><a href="/">Home</a></p>
+<div class="flex flex-col items-center justify-center mt-30 text-center">
+    <!-- Display status code -->
+    <div class="text-7xl font-bold text-red-500">{page.status} :(</div>
+    
+    <!-- Display description -->
+    <p class="text-2xl mt-4 mb-2">{description}</p>
+    <p class="text-lg mb-4">If you believe this is an error, please contact us.</p>
+    
+    <!-- Home link -->
+    <a href="/" class="bg-accent p-2 pl-3 pr-3 text-white text-xl font-bold rounded-lg">Go to Home</a>
 </div>

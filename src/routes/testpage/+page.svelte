@@ -1,4 +1,3 @@
-<!-- filepath: /home/amp/ampmod/ampmod-web/ampmod-web-front/src/routes/testpage/+page.svelte -->
 <script lang="ts">
     import { onMount } from 'svelte';
     import Header from '$components/header/Header.svelte';

@@ -245,9 +245,10 @@
         {:else if banReason == 'banevasion'}
         <p>Log in to your main account to learn more or to appeal the ban.</p>
         {:else if banReason == 'selfharm'}
-        <p>This ban is to help with your mental health. <strong>Please consult a mental health resource.</strong> We care about your well-being and want to protect you. AmpMod provides a list of mental health resources available <a href="/banned/mental">here</a>.</p>
+        <p>This ban is to help with your mental health. <strong>Please consult a mental health resource.</strong> We care about your well-being and want to protect you. AmpMod provides a list of mental health resources available <a href="/banned/mental" data-sveltekit-preload-data="eager">here</a>.</p>
       {/if}
     {:else}
       <Spinner />
+      <p class="text-center m-2">You have been banned from AmpMod. Please wait for more information.</p>
     {/if}
   </div>

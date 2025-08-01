@@ -1,102 +1,73 @@
 <script lang="ts">
-    import { fade } from 'svelte/transition';
-    import { X } from '@lucide/svelte';
-    let {
-      show = true,
-      closeOnOutsideClick = true,
-      titleContent,
-      onClose,
-      children
-    } = $props<{
-      show?: boolean;
-      closeOnOutsideClick?: boolean;
-      titleContent?: () => any;
-      onClose?: () => void;
-      children?: () => any;
-    }>();
-  
-    function handleOutsideClick(event: MouseEvent) {
-      if (closeOnOutsideClick && event.target === event.currentTarget) {
-        close();
-      }
+  import { fade } from 'svelte/transition';
+  import { X } from '@lucide/svelte';
+
+  let {
+    // Declare 'show' as a prop
+    // Then make it bindable with $bindable() in the same line
+    show = $bindable(true), // <-- CORRECTED LINE
+    closeOnOutsideClick = true,
+    titleContent,
+    onClose,
+  } = $props<{
+    show?: boolean; // Type declaration for the prop
+    closeOnOutsideClick?: boolean;
+    titleContent?: string;
+    onClose?: () => void;
+  }>();
+
+  // Effect to manage body scroll, reacting to changes in the bindable 'show'
+  $effect(() => {
+    if (!show) {
+      document.body.classList.remove('overflow-hidden');
+    } else {
+      document.body.classList.add('overflow-hidden');
     }
-  
-    function close() {
-      show = false;
-      if (onClose) {
-        onClose();
-      }
+  });
+
+  function handleOutsideClick(event: MouseEvent) {
+    if (closeOnOutsideClick && event.target === event.currentTarget) {
+      close();
     }
-  </script>
-  
-  {#if show}
-    <div class="modal-overlay" onclick={handleOutsideClick} transition:fade>
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="modal-title">
-            {titleContent ?? titleContent}
-          </div>
-          <button class="close-button" onclick={close}><X /></button>
-        </div>
-        <div class="modal-body">
-          {@render children?.()}
-        </div>
+  }
+
+  function close() {
+    show = false; // This now correctly updates the parent's binded variable
+    // The effect will handle removing the overflow-hidden class
+    if (onClose) {
+      onClose();
+    }
+  }
+</script>
+
+{#if show}
+  <div
+    class="fixed inset-0 z-[1000] flex items-center justify-center bg-black bg-opacity-50"
+    onclick={handleOutsideClick}
+    transition:fade={{ duration: 150 }}
+    role="dialog"
+  >
+    <div
+      class="relative flex w-[90%] max-w-lg flex-col rounded-lg bg-white shadow-xl dark:bg-gray-800"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div class="flex items-center justify-between rounded-t-lg bg-accent px-4 py-3 text-white">
+        <h2 id="modal-title" class="text-xl font-bold">
+          {titleContent}
+        </h2>
+        <button
+          class="text-2xl leading-none text-white hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-accent"
+          onclick={close}
+          aria-label="Close modal"
+        >
+          <X size={24} />
+        </button>
+      </div>
+      <div class="p-6 text-gray-700 dark:text-gray-300">
+        <slot />
       </div>
     </div>
-  {/if}
-  
-  <style>
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-  
-    .modal-content {
-      background-color: var(--footer-background);
-      border-radius: 8px;
-      text-align: center;
-      max-width: 500px;
-      width: 90%;
-      box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-    }
-  
-    .modal-header {
-      background-color: #59C059;
-      color: white;
-      padding: 0.75rem 1rem;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-  
-    .modal-title {
-      font-size: 1.25rem;
-      font-weight: bold;
-    }
-  
-    .close-button {
-      background: none;
-      border: none;
-      color: white;
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 0;
-      line-height: 1;
-    }
-  
-    .modal-body {
-      padding: 2rem;
-    }
-  </style>
+  </div>
+{/if}

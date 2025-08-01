@@ -1,6 +1,5 @@
-<!-- filepath: /home/amp/ampmod/ampmod-web/ampmod-web-front/src/routes/banned/tor/+page.svelte -->
 <svelte:head>
-    <title>Banned - Tor Users - AmpMod</title>
+    <title>Tor blocked - AmpMod</title>
 </svelte:head>
 <script lang="ts">
     import { onMount } from 'svelte';

@@ -2,15 +2,19 @@
     let searchQuery = '';
     import Logo from './logo.svg';
     import { isLoggedIn, username } from '$stores/session';
-    import { Mail, FolderOpen, ChevronDown, Sun, Moon, MenuIcon } from '@lucide/svelte';
-    import { theme } from '$stores/theme';
+    import { Mail, FolderOpen, ChevronDown, MenuIcon } from '@lucide/svelte'; // Removed Sun, Moon as direct toggle is removed
+    import { theme } from '$stores/theme'; // Assuming $stores/theme is a writable store
+
+    import { onMount } from 'svelte';
     import { fade } from 'svelte/transition';
+
 
     let isProfileOpen = false;
     let isMenuOpen = false;
+    let isLoginOpen = false;
 
-    // Use a click outside listener for dropdowns for better UX
-    import { onMount } from 'svelte';
+    let loginUsername = '';
+    let loginPassword = '';
 
     function toggleProfile() {
         isProfileOpen = !isProfileOpen;
@@ -20,22 +24,73 @@
         isProfileOpen = false;
     }
 
+    // This function is no longer directly used by a button in the logged-out state
+    // The theme logic is now primarily driven by the settings page with the dropdown
     function toggleTheme() {
-        theme.update(current => (current === 'light' ? 'dark' : 'light'));
+        // Toggle the theme value in the Svelte store
+        $theme = $theme === "dark" ? "light" : "dark";
+        // Update localStorage as a side effect
+        localStorage.theme = $theme;
+    }
+
+    function toggleLogin() {
+        isLoginOpen = !isLoginOpen;
+    }
+
+    function logIn() {
+        // Implement your login logic here
+        console.log('Logging in with:', loginUsername, loginPassword);
+        // Reset fields after login attempt
+        loginUsername = '';
+        loginPassword = '';
+        isLoginOpen = false; // Close the login dropdown after attempting to log in
+        $isLoggedIn = true; // Simulate successful login, replace with actual login logic
+    }
+
+    function closeLogin() {
+        isLoginOpen = false;
     }
 
     function toggleMenu() {
         isMenuOpen = !isMenuOpen;
     }
 
-    // New: Handle clicks outside of dropdowns/menus to close them
     onMount(() => {
+        // Initialize theme based on localStorage on mount
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            $theme = 'dark';
+        } else {
+            $theme = 'light';
+        }
+
+        // Apply initial theme class
+        if ($theme === 'dark') {
+            document.documentElement.classList.add("dark");
+        } else {
+            document.documentElement.classList.remove("dark");
+        }
+
+        // React to theme store changes to update the DOM
+        const unsubscribe = theme.subscribe(value => {
+            if (value === 'dark') {
+                document.documentElement.classList.add("dark");
+            } else {
+                document.documentElement.classList.remove("dark");
+            }
+        });
+
         const handleClickOutside = (event: MouseEvent) => {
+            // Close profile dropdown if click is outside
             if (isProfileOpen && !event.composedPath().some(el => (el as HTMLElement).closest('.profile-dropdown'))) {
                 closeProfile();
             }
+            // Close hamburger menu if click is outside
             if (isMenuOpen && !event.composedPath().some(el => (el as HTMLElement).closest('.hamburger-container'))) {
-                toggleMenu(); // This will close it if already open
+                toggleMenu(); // This will close the menu since it's a toggle
+            }
+            // Close login dropdown if click is outside
+            if (isLoginOpen && !event.composedPath().some(el => (el as HTMLElement).closest('.login-dropdown'))) {
+                closeLogin();
             }
         };
 
@@ -43,470 +98,80 @@
 
         return () => {
             document.removeEventListener('click', handleClickOutside);
+            unsubscribe(); // Clean up subscription
         };
     });
 </script>
 
-<style>
-    button { margin: 0; }
-    header {
-        display: flex;
-        justify-content: space-between; /* Changed from center */
-        align-items: center;
-        height: 50px;
-        background: var(--accent-color);
-        color: white;
-        font-family: var(--font-stack);
-        font-size: 14px;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        padding: 0 10px; /* Add some padding on the sides for smaller screens */
-        box-sizing: border-box; /* Include padding in the element's total width/height */
-        z-index: 10;
-    }
-
-    button {
-        cursor: pointer;
-        background: none;
-        border: none;
-        text-align: left;
-        font-family: inherit;
-        font-size: inherit;
-        color: inherit; /* Ensure button text/icons inherit color */
-    }
-
-    nav {
-        display: flex;
-        align-items: center;
-        /* Use gap for spacing between nav items, but more flexible for small screens */
-        gap: 8px; /* Default gap */
-    }
-
-    .header-link {
-        all: unset;
-        color: white;
-        text-decoration: none;
-        font-weight: bold;
-        padding: 0.75em;
-        border-radius: 4px;
-        cursor: pointer;
-        white-space: nowrap; /* Prevent links from breaking into multiple lines */
-    }
-    
-    .header-image-link {
-        height: 24px;
-        padding: 4px 8px;
-        transition: transform 0.1s;
-        /* Make icon buttons touch-friendly */
-        min-width: 44px; /* Ensure a minimum touch target size */
-        min-height: 44px;
-        display: inline-flex; /* Use flex to center icon if it's the only content */
-        justify-content: center;
-        align-items: center;
-        box-sizing: border-box;
-    }
-
-    .header-image-link:hover {
-        transform: scale(1.2);
-    }
-
-    .header-link:not(.header-image-link):hover {
-        background: rgba(0, 0, 0, 0.1);
-    }
-
-    .search-bar {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .search-bar input {
-        padding: 0.6em 1em;
-        outline: none;
-        border: none;
-        border-radius: 4px;
-        background: rgba(0, 0, 0, 0.1);
-        width: 100%; /* Make it fluid by default */
-        max-width: 200px; /* Sensible max-width for smaller screens */
-        color: white;
-        transition: background 0.3s, color 0.3s, box-shadow 0.2s;
-    }
-
-    .search-bar input:focus {
-        background: white;
-        color: black;
-        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-    }
-
-    .search-bar input::placeholder {
-        opacity: 0.7;
-    }
-
-    .search-bar-mobile input {
-        padding: 0.1em 1em;
-        outline: none;
-        border: none;
-        border-radius: 4px;
-        background: transparent;
-        color: white;
-        transition: background 0.3s, color 0.3s, box-shadow 0.2s;
-		text-align: center;
-    }
-
-    .search-bar-mobile input:focus {
-        background: white;
-        color: black;
-        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-    }	
-
-    .header-overlay-hack {
-        margin-top: 50px;
-    }
-
-    .logo-link {
-        display: flex; /* Ensure logo is centered if it's the only element in its container */
-        align-items: center;
-        margin-right: 10px; /* Space between logo and other elements */
-    }
-
-    .logo {
-        transition: transform 0.1s;
-        height: 28px;
-        flex-shrink: 0; /* Prevent logo from shrinking */
-    }
-
-    .logo-link:hover .logo {
-        transform: scale(1.05);
-    }
-
-    .profile-dropdown {
-        position: relative;
-        /* Ensure dropdown doesn't affect layout much on small screens if it expands */
-        flex-shrink: 0; /* Prevent profile button from shrinking */
-    }
-
-    .profile-button {
-        background: none;
-        border: none;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        padding: 0.75em 0.75em;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        box-sizing: border-box;
-    }
-
-    .profile-button:hover {
-        background: rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-options {
-        display: block;
-        position: absolute;
-        top: calc(100% + 7px);
-        right: 0;
-        background: var(--accent-color);
-        color: white;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-top: none;
-        border-radius: 0 0 4px 4px;
-        z-index: 15;
-        width: 12em; /* Default width */
-        max-width: 90vw; /* Prevent overflow on very small screens */
-        overflow: hidden;
-        box-sizing: border-box;
-        text-align: left; /* Ensure text is left-aligned within dropdown */
-    }
-
-    .profile-options a, .profile-options button {
-        display: block;
-        padding: 0.6em 1em;
-        text-decoration: none;
-        color: white;
-        font-weight: bold;
-        width: 100%;
-        box-sizing: border-box; /* Include padding in width */
-    }
-
-    .profile-options a:hover, .profile-options button:hover {
-        background: rgba(0, 0, 0, 0.05);
-    }
-
-    .profile-options hr {
-        margin: 0;
-        border: none;
-        border-top: 1px solid rgba(0, 0, 0, 0.2);
-    }
-
-    /* New container for the hamburger menu to fix its positioning */
-    .hamburger-container {
-        position: relative; /* For positioning the menu relative to this container */
-        display: none; /* Hidden by default */
-    }
-
-    .hamburger-menu {
-        position: absolute;
-        top: calc(100% + 7px); /* Position it relative to its button */
-        left: 0; /* Align left with the button */
-        background: var(--accent-color);
-        color: white;
-        border: 1px solid rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-        z-index: 15;
-        width: 12em;
-        max-width: 90vw; /* Prevent overflow on very small screens */
-        overflow: hidden;
-        box-sizing: border-box;
-    }
-
-    .hamburger-menu a {
-        display: block;
-        padding: 0.6em 1em;
-        text-decoration: none;
-        color: white;
-        font-weight: bold;
-    }
-
-    .hamburger-menu a:hover {
-        background: rgba(0, 0, 0, 0.05);
-    }
-
-    .hamburger-button {
-        display: none; /* Hidden by default, shown by media query */
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.5em; /* Adjust icon size */
-        cursor: pointer;
-        /* Positioned inside the flex container, no absolute positioning needed here */
-        padding: 0.75em; /* Add padding for better touch target */
-        box-sizing: border-box;
-        min-width: 44px; /* Touch target */
-        min-height: 44px;
-        display: flex; /* To center the icon */
-        justify-content: center;
-        align-items: center;
-    }
-
-    /* Media Queries for Responsiveness */
-
-    /* Small Mobile (e.g., up to 480px wide) */
-    @media (max-width: 480px) {
-        header {
-            padding: 0 5px; /* Even less padding on very small screens */
-            justify-content: space-between; /* Space out elements */
-        }
-
-        .logo-link {
-             margin-right: 5px; /* Reduce space next to logo */
-        }
-
-        .search-bar {
-            flex-grow: 1; /* Allow search bar to take available space */
-            margin-right: 5px; /* Space between search and right-side elements */
-        }
-
-        .search-bar input {
-            padding: 0.5em 0.8em; /* Slightly smaller padding */
-            font-size: 0.9em; /* Smaller font size */
-        }
-
-        /* Ensure profile and login/join buttons are compact */
-        .profile-button,
-        .header-link:not(.header-image-link) {
-            padding: 0.5em 0.6em;
-            font-size: 0.9em;
-        }
-
-        .profile-dropdown,
-        .hamburger-container {
-            position: static; /* Let them flow normally to occupy space */
-            margin-left: auto; /* Push them to the right */
-        }
-
-        .profile-options,
-        .hamburger-menu {
-            /* Full width dropdowns/menus for small screens */
-            width: 100vw; /* Take full viewport width */
-            max-width: unset; /* Remove max-width constraint */
-            left: 0; /* Align to left edge of viewport */
-            right: auto; /* Override right: 0 */
-            top: 50px; /* Position right below the header */
-            border-radius: 0; /* No rounded corners for full-width overlay */
-            border-left: none;
-            border-right: none;
-        }
-
-        .header-image-link {
-            min-width: 38px; /* Slightly smaller touch target if needed for space */
-            min-height: 38px;
-            padding: 2px 4px;
-        }
-    }
-
-    /* Tablets and small desktops (e.g., from 481px to 900px wide) */
-    @media (min-width: 481px) and (max-width: 900px) {
-        header {
-            padding: 0 15px; /* More padding */
-        }
-        
-        .search-bar input {
-            width: 30vw; /* Adjust width for slightly larger screens */
-            max-width: 300px; /* Add a max-width to prevent it from getting too wide */
-        }
-
-        /* The original rule was max-width: 900px for these. Keep them here, but improve */
-        nav > .nomobile {
-             display: none; /* Hide regular nav links */
-        }
-
-        .hamburger-button {
-            display: block; /* Show hamburger */
-            order: -1; /* Place it at the beginning */
-            margin-right: 10px; /* Space between hamburger and logo */
-        }
-
-        .hamburger-container {
-            display: block; /* Show the container for the hamburger menu */
-            position: absolute; /* Re-position its container for menu display */
-            left: 10px; /* Align to the left side */
-            top: 0; /* Align to the top of the header */
-            height: 100%; /* Take full height of header for vertical alignment */
-            display: flex; /* Use flex to align button */
-            align-items: center;
-            z-index: 100; /* Ensure button is clickable above other elements */
-        }
-        
-        /* Adjust hamburger menu position relative to its new container */
-        .hamburger-menu {
-            top: calc(100% + 7px);
-            left: 0;
-            width: 15em; /* Slightly larger width for tablet menu */
-            max-width: 80vw; /* Responsive max width */
-        }
-
-        /* Re-center the main content of the header if needed for aesthetics */
-        header nav {
-             flex-grow: 1; /* Allow navigation to take remaining space */
-             justify-content: flex-end; /* Push elements to the right */
-        }
-
-        header .logo-link {
-            position: absolute; /* Take logo out of flex flow to center it */
-            left: 50%;
-            transform: translateX(-50%);
-        }
-    }
-
-    /* Desktops (e.g., from 901px upwards) */
-    @media (min-width: 901px) {
-        header {
-            justify-content: center; /* Center content on larger screens */
-            gap: 20px; /* More space between main sections */
-            padding: 0 20px;
-        }
-        
-        header nav {
-            gap: 15px; /* Larger gap for nav items */
-        }
-
-        .hamburger-button,
-        .hamburger-container {
-            display: none; /* Hide hamburger menu on larger screens */
-        }
-
-        nav > .nomobile {
-            display: flex; /* Show regular nav links */
-            gap: 8px; /* Gap for these specific links */
-        }
-
-        .search-bar input {
-            width: 25em; /* Wider search bar */
-            max-width: 400px; /* Ensure it doesn't get ridiculously wide */
-        }
-
-        .profile-options {
-            width: 15em; /* Wider profile dropdown */
-            max-width: unset; /* No max width needed */
-        }
-    }
-</style>
-
-<header>
-    <div class="hamburger-container">
-        <button class="hamburger-button" on:click={toggleMenu} aria-expanded={isMenuOpen} aria-controls="main-menu">
+<header class="fixed top-0 left-0 w-full h-[50px] flex items-center justify-between bg-accent text-white font-sans text-sm border-b border-black/20 shadow-md px-2 md:px-4 z-10">
+    <div class="relative flex items-center md:hidden hamburger-container">
+        <button class="flex items-center justify-center p-3 min-w-[44px] min-h-[44px] text-white text-xl focus:outline-none" onclick={toggleMenu} aria-expanded={isMenuOpen} aria-controls="main-menu">
             <MenuIcon />
         </button>
         {#if isMenuOpen}
-            <div class="hamburger-menu" transition:fade={{ duration: 100 }} id="main-menu">
-                <a href="https://ampmod.codeberg.page/editor.html" on:click={toggleMenu}>Create</a>
-                <a href="https://ampmod.codeberg.page/credits.html" on:click={toggleMenu}>Credits</a>
-                <a href="https://ampmod.flarum.cloud" on:click={toggleMenu}>Discuss</a>
-                <a href="https://codeberg.org/AmpMod" on:click={toggleMenu}>Contribute</a>
-				<div class="search-bar-mobile" style="width: 100%; margin: 4px;">
-					<input
-						type="text"
-						placeholder="Search for projects..."
-						bind:value={searchQuery}
-						aria-label="Search for projects"
-					/>
-				</div>
-			</div>
+            <div class="absolute left-0 top-full w-48 max-w-[90vw] bg-accent text-white border border-black/20 rounded shadow-lg mt-2 hamburger-menu" transition:fade={{ duration: 100 }} id="main-menu">
+                <a href="https://ampmod.codeberg.page/credits.html" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Credits</a>
+                <a href="https://ampmod.flarum.cloud" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Discuss</a>
+                <a href="https://codeberg.org/AmpMod" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Contribute</a>
+                <a href="https://ampmod.codeberg.page/editor.html" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Create</a>
+                <hr class="my-1 border-t border-black/20" />
+                <a href="/settings" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Settings</a>
+                <input type="text" placeholder="Search for projects..." bind:value={searchQuery} aria-label="Search for projects" class="w-full p-2 rounded bg-transparent text-white placeholder:text-white/70 focus:bg-white focus:text-black focus:outline-none" />
+            </div>
         {/if}
     </div>
 
-    <a href="/" class="logo-link">
-        <img src={Logo} draggable=false height=28 alt="AmpMod" class="logo">
+    <a href="/" class="flex items-center mr-2 logo-link">
+        <img src={Logo} draggable=false height=28 alt="AmpMod" class="h-[28px] transition-transform duration-100 hover:scale-105" />
     </a>
-    
-    <nav>
-        <div class="nomobile">
-            <a href="https://ampmod.codeberg.page/editor.html" class="header-link">Create</a>
-            <a href="https://ampmod.codeberg.page/credits.html" class="header-link">Credits</a>
-            <a href="https://ampmod.flarum.cloud" class="header-link">Discuss</a>
-            <a href="https://codeberg.org/AmpMod" class="header-link">Contribute</a>
+
+    <div class="hidden md:flex items-center gap-2">
+        <a href="https://ampmod.codeberg.page/editor.html" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Create</a>
+        <a href="https://ampmod.codeberg.page/credits.html" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Credits</a>
+        <a href="https://ampmod.flarum.cloud" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Discuss</a>
+        <a href="https://codeberg.org/AmpMod" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Contribute</a>
+    </div>
+
+    <nav class="flex items-center gap-2 flex-1 justify-end">
+        <div class="hidden md:flex items-center gap-2 search-bar">
+            <input type="text" placeholder="Search for projects..." bind:value={searchQuery} aria-label="Search for projects" class="p-2 rounded bg-black/10 text-white placeholder:text-white/70 focus:bg-white focus:text-black focus:outline-none w-full max-w-[200px] md:max-w-[300px] lg:max-w-[400px]" />
         </div>
-        
-        <div class="search-bar nomobile">
-            <input
-                type="text"
-                placeholder="Search for projects..."
-                bind:value={searchQuery}
-                aria-label="Search for projects"
-            />
-        </div>
-        
         {#if $isLoggedIn}
-            <a href="/messages" class="header-link header-image-link" title="Messages" aria-label="Messages"><Mail /></a>
-            <a href="/mystuff" class="header-link header-image-link" title="My Stuff" aria-label="My Stuff"><FolderOpen /></a>
-            <div class="profile-dropdown">
-                <button class="profile-button" on:click={toggleProfile} aria-expanded={isProfileOpen} aria-controls="profile-menu">
+            <a href="/messages" class="inline-flex items-center justify-center h-6 min-w-[44px] min-h-[44px] px-2 py-1 rounded" title="Messages" aria-label="Messages"><Mail /></a>
+            <a href="/mystuff" class="inline-flex items-center justify-center h-6 min-w-[44px] min-h-[44px] px-2 py-1 rounded" title="My Stuff" aria-label="My Stuff"><FolderOpen /></a>
+            <div class="relative flex-shrink-0 profile-dropdown">
+                <button class="flex items-center gap-1 px-3 py-2 rounded font-bold text-white cursor-pointer profile-button hover:bg-black/10" onclick={toggleProfile} aria-expanded={isProfileOpen} aria-controls="profile-menu">
                     {$username} <ChevronDown size=16 />
                 </button>
                 {#if isProfileOpen}
-                    <div class="profile-options" transition:fade={{ duration: 100 }} id="profile-menu">
-                        <a href={`/users/${$username}`} on:click={closeProfile}>Profile</a>
-                        <a href="/mystuff" on:click={closeProfile}>My Stuff</a>
-                        <a href="/settings" on:click={closeProfile}>Settings</a>
-                        <hr>
-                        <button on:click={toggleTheme}>{#if $theme == "dark"}Light{:else}Dark{/if} Theme</button>
-                        <a href="/logout" on:click={closeProfile}>Log Out</a>
+                    <div class="absolute right-0 top-full mt-2 w-48 max-w-[90vw] bg-accent text-white border border-black/20 rounded shadow-lg z-20" transition:fade={{ duration: 100 }} id="profile-menu">
+                        <a href={`/@${$username}`} class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Profile</a>
+                        <a href="/settings" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Settings</a>
+                        <hr class="my-1 border-t border-black/20" />
+                        <!-- The direct theme toggle is removed here as well, assuming settings page handles it -->
+                        <a href="/logout" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Log Out</a>
                     </div>
                 {/if}
             </div>
         {:else}
-            <button class="header-link header-image-link" on:click={toggleTheme} tabindex="0" aria-label="Toggle theme">
-                {#if $theme == "dark"}<Sun fill="currentColor" />{:else}<Moon fill="currentColor" />{/if}
-            </button>
-            <a href="/join" class="header-link">Join</a>
-            <a href="/login" class="header-link">Log in</a>
+            <!-- Settings button for logged out users -->
+            <a href="/settings" class="hidden md:block  font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Settings</a>
+
+            <div class="relative login-dropdown">
+                <button class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10" onclick={toggleLogin} aria-expanded={isLoginOpen} aria-controls="login-menu">Log in</button>
+                {#if isLoginOpen}
+                    <div class="absolute right-0 top-full mt-2 w-50 max-w-[95vw] bg-accent text-white border border-black/20 rounded shadow-lg z-20 p-6 flex flex-col gap-4" id="login-menu" style="min-width:260px;" transition:fade={{ duration: 100 }}>
+                        <input id="login-username" type="text" bind:value={loginUsername} class="p-2 rounded bg-white text-black focus:outline-none" autocomplete="username" placeholder="Username" />
+                        <input id="login-password" type="password" bind:value={loginPassword} class="p-2 rounded bg-white text-black focus:outline-none" autocomplete="current-password" placeholder="Password" />
+                        <div class="flex items-center justify-between">
+                            <button class="px-4 py-2 rounded bg-white text-accent font-bold hover:bg-gray-100 transition" onclick={logIn()}>Log in</button>
+                            <a href="/login-help" class="font-bold text-white/90 hover:underline">Can't login?</a>
+                        </div>
+                    </div>
+                {/if}
+            </div>
+            <a href="/join" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link bg-white text-accent hover:text-accent-secondary">Join</a>
         {/if}
     </nav>
 </header>
-<div class="header-overlay-hack"></div>
+<div class="w-full mt-[50px]"></div>
