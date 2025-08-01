@@ -10,7 +10,7 @@ const path_to_layout = join(__dirname, './src/mdsvex.svelte');
 const config = {
 	preprocess: [vitePreprocess(), mdsvex({layout: path_to_layout})],
 	kit: {
-		adapter: adapter(),
+		adapter: adapter({edge: true}),
 		alias: {
 			$lib: 'src/lib',
 			$components: 'src/components',
