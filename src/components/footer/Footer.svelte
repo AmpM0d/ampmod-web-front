@@ -6,6 +6,7 @@
         <li><a href="/" class="text-accent hover:text-accent-hover transition-colors" title="Go to the AmpMod homepage">Home</a></li>
         <li><a href="https://ampmod.flarum.cloud" class="text-accent hover:text-accent-hover transition-colors" title="Visit the AmpMod Discussion Forums">Discussion Forums</a></li>
         <li><a href="https://ampmod.flarum.cloud/blog" class="text-accent hover:text-accent-hover transition-colors" title="Read the AmpMod blog">Blog</a></li>
+        <li><a href="https://ampmod.miraheze.org/" class="text-accent hover:text-accent-hover transition-colors" title="Visit the AmpMod Wiki">AmpMod Wiki</a></li>
         <li><span class="text-gray-500 cursor-not-allowed" title="Statistics feature is not available yet">Statistics</span></li>
       </ul>
     </nav>
@@ -14,7 +15,6 @@
       <h4 class="font-semibold text-lg text-primary-dark dark:text-primary-light">Resources</h4>
       <ul class="space-y-2 text-sm">
         <li><a href="/about" class="text-accent hover:text-accent-hover transition-colors" title="Learn more about AmpMod">About</a></li>
-        <li><a href="https://ampmod.miraheze.org/" class="text-accent hover:text-accent-hover transition-colors" title="Visit the AmpMod Wiki">AmpMod Wiki</a></li>
         <li><a href="https://codeberg.org/AmpMod" class="text-accent hover:text-accent-hover transition-colors" title="View the AmpMod source code on Codeberg">Source Code</a></li>
         <li><a href="https://ampmod.codeberg.page/manual" class="text-accent hover:text-accent-hover transition-colors" title="Read the AmpMod manual">Manual</a></li>
         <li><span class="text-gray-500 cursor-not-allowed" title="FAQ is not available yet">FAQ</span></li>

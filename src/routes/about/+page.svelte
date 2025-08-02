@@ -1,7 +1,7 @@
 <script>
     import blobLight from './blob-light.png';
     import blobDark from './blob-dark.png';
-    import { LibraryBig, BookOpenText, CodeIcon, MessagesSquare, Lightbulb, Newspaper, X, Square, Minus } from '@lucide/svelte';
+    import { LibraryBig, BookText, NotebookTabs, CodeIcon, MessagesSquare, Lightbulb, Newspaper, TriangleAlert } from '@lucide/svelte';
 </script>
 
 <svelte:head>
@@ -53,12 +53,18 @@
     <section class="py-16">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl font-bold text-accent mb-8">Need Help?</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a class="block bg-accent text-white font-bold text-lg rounded-lg px-6 py-4 transition-shadow hover:shadow-lg" href="https://ampmod.codeberg.page/manual" target="_blank" rel="noopener noreferrer">
+                        <BookText class="inline-block mr-2" /> Read the Manual
+                    </a>
+                    <p class="mt-4 text-gray-700 dark:text-gray-300">The AmpMod manual is a comprehensive guide to using AmpMod, including tutorials, guides, and reference material.</p>
+                </div>
                 <div>
                     <a class="block bg-accent text-white font-bold text-lg rounded-lg px-6 py-4 transition-shadow hover:shadow-lg" href="https://ampmod.miraheze.org" target="_blank" rel="noopener noreferrer">
                         <LibraryBig class="inline-block mr-2" /> Read the Wiki
                     </a>
-                    <p class="mt-4 text-gray-700 dark:text-gray-300">The official AmpMod wiki includes guides, documentation, and other information for both new and experienced AmpModders.</p>
+                    <p class="mt-4 text-gray-700 dark:text-gray-300">The official AmpMod wiki includes guides, documentation, and other information for more experienced AmpModders.</p>
                 </div>
                 <div>
                     <a class="block bg-accent text-white font-bold text-lg rounded-lg px-6 py-4 transition-shadow hover:shadow-lg" href="https://ampmod.flarum.cloud" target="_blank" rel="noopener noreferrer">
@@ -81,7 +87,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div>
                 <a class="block bg-accent text-white font-bold text-lg rounded-lg px-6 py-4 transition-shadow hover:shadow-lg" href="https://ampmod.codeberg.page/manual/dev" target="_blank" rel="noopener noreferrer">
-                    <BookOpenText class="inline-block mr-2" /> Read Dev Docs
+                    <NotebookTabs class="inline-block mr-2" /> Read Dev Docs
                 </a>
                 <p class="mt-4 text-gray-700 dark:text-gray-300">If you want to contribute to AmpMod, create extensions, or create your own fork of AmpMod, read the developer documentation to find out more!</p>
             </div>
