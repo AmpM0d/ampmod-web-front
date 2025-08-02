@@ -17,7 +17,7 @@ const config = {
 		})
 	],
 	kit: {
-		adapter: adapter({edge: true}),
+		adapter: adapter({split: true}),
 		alias: {
 			$lib: 'src/lib',
 			$components: 'src/components',
