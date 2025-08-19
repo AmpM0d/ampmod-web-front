@@ -31,7 +31,7 @@
 } 
 
 #cc-main {
-    --cc-font-family: --font-sans;
+    --cc-font-family:'Inter Variable', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --cc-modal-border-radius: .5rem;
     --cc-btn-border-radius: .4rem;
     --cc-modal-transition-duration: .25s;
