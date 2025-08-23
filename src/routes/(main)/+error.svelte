@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { page } from '$app/state'; // Use $app/stores for SvelteKit 1.0+
+    import { page } from '$app/state';
 
     // A mapping of common HTTP status codes to human-readable descriptions
     const statusDescriptions: Record<number, string> = {

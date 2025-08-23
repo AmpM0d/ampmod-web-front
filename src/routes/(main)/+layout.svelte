@@ -1,5 +1,5 @@
 <script lang="ts">
-    import '../app.css';
+    import '../../app.css';
     import { goto } from '$app/navigation';
     import { isBanned } from '$stores/session';
     import { page } from '$app/state';
@@ -8,7 +8,7 @@
     import Header from '$components/header/Header.svelte';
     import Footer from '$components/footer/Footer.svelte';
     import "vanilla-cookieconsent/dist/cookieconsent.css";
-    import * as CookieConsent from "vanilla-cookieconsent";
+    // import * as CookieConsent from "vanilla-cookieconsent";
 
     if (true) {
         console.warn(
@@ -32,57 +32,6 @@
     ]
 
     $effect(() => {
-      CookieConsent.run({
-          disablePageInteraction: true,
-          guiOptions: {
-            consentModal: {
-              layout: 'box wide',
-              position: 'middle center'
-            }
-          },
-          categories: {
-              necessary: {
-                  enabled: true,  // this category is enabled by default
-                  readOnly: true  // this category cannot be disabled
-              },
-              analytics: {}
-          },
-          language: {
-              default: 'en',
-              translations: {
-                  en: {
-                      consentModal: {
-                          title: 'Do you accept cookies?',
-                          description: 'Cookies are used to enhance AmpMod and to keep you logged in. We respect your privacy and no advertisements are shown. If you want to change your preferences, you can click "Cookie Preferences" at the bottom right of the page.',
-                          acceptAllBtn: 'Accept all',
-                          acceptNecessaryBtn: 'Only accept essential',
-                          showPreferencesBtn: 'Preferences'
-                      },
-                      preferencesModal: {
-                          title: 'Manage cookie preferences',
-                          acceptAllBtn: 'Accept all',
-                          acceptNecessaryBtn: 'Only accept essential',
-                          savePreferencesBtn: 'Accept current selection',
-                          closeIconLabel: 'Close modal',
-                          sections: [
-                              {
-                                  title: 'Strictly Necessary cookies',
-                                  description: 'These cookies are essential for the proper functioning of the website and cannot be disabled.',
-
-                                  //this field will generate a toggle linked to the 'necessary' category
-                                  linkedCategory: 'necessary'
-                              },
-                              {
-                                  title: 'Performance and Analytics',
-                                  description: 'These cookies collect information about how you use AmpMod. All of the data is anonymized and cannot be used to identify you.',
-                                  linkedCategory: 'analytics'
-                              },
-                          ]
-                      }
-                  }
-              }
-          }
-      });
       if ($isBanned && !banAllowedPages.includes(page.url.pathname)) {
         goto('/banned');
       }
@@ -108,7 +57,7 @@
           </p>
         </div>
       </noscript>
-{@render children()}
+      {@render children()}
     </main>
     <Footer />
     <!-- Semicolon glitch -->

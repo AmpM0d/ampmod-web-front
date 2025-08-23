@@ -28,15 +28,13 @@ Please use these buttons to report projects/users as it makes moderation quicker
 and easier for us. If you cannot report a project or user with these buttons for any
 reason, you can contact us with the methods below.
 
+If someone is in immediate danger of harm, please contact your local emergency services.
+
 Please do not report projects or users via public communication such as Scratch
 comments or forums. Please only report via the Report form.
 
 Spam, fake, or troll reports can result in a ban. Please read the guidelines carefully
 before reporting a project or user.
-
-**DO NOT REPORT CONTENT CONTAINING ILLEGAL CONTENT, SUCH AS CHILD MANIPULATION TO US. PLEASE 
-CONTACT YOUR LAW ENFORCEMENT AGENCY, OR IN CASE OF DEATH THREATS OR CHILD MANIPULATION,
-YOUR EMERGENCY SERVICES.** This warning also applies to websites outside of AmpMod.
 
 AmpMod is provided as-is according to the [Terms of Use](/terms) and the open-source licences
 used by AmpMod.
@@ -94,8 +92,10 @@ uses the video sensing extension or if it is related to it, but the project must
 reveal.
 
 ## Self harm
+<!-- Eager loading is enabled, so the page will be loaded immediately when these guidelines are viewed.
+     This is for safety reasons, so that if someone is in danger of self harm, they can get help immediately. -->
 <div data-sveltekit-preload-code="eager">
-    <p>You may not promote, encourage or reference self-harm, else you will be banned immediately.
+    <p>You may not promote, encourage or reference self-harm, else your account will be deleted.
     <strong>IF YOU ARE IN DANGER OF SELF HARM, PLEASE CONTACT <a href="/banned/mental">ONE OF THESE RESOURCES</a>.</strong></p>
 </div>
 
@@ -126,6 +126,7 @@ drawn from the weapon.
 ## Blood / Gore
 Blood and gore are not allowed on the AmpMod website. In addition, "Sprunki" Incredibox-type projects,
 which revolve around blood and gore, are not allowed.
+<!-- Do we need to specify Sprunki? What if people misread this and think all Incredibox-type projects are not allowed? -->
 
 ## Extensions
 Extensions are scripts that allow adding more blocks to the AmpMod editor. There are some built-in
@@ -140,11 +141,11 @@ Only AmpModders can upload projects with custom extensions, or any of the follow
 * Iframe
 
 All projects with custom extensions will be reviewed and tagged. In addition, the project will show
-a warning before it loads.
+a warning before it loads. To load each extension, the user must click "Allow".
 
 There are technical restrictions in place to prevent New AmpModders from uploading projects with
 custom extensions. If you are a New AmpModder, wait until you can rank up to an AmpModder. See the
-AmpMod Wiki for more information.
+AmpMod Wiki for more information. <!-- Wiki article name is currently: "ampmod-web:AmpModders" -->
 
 Extensions that can grab IP addresses and other sensitive info directly for malicious purposes like
 doxing are not allowed.
@@ -155,11 +156,9 @@ This includes "browser" projects. Projects that show websites against the guidel
 allowed.
 
 ## Reuploads of Scratch projects
-Reuploads of Scratch projects are only allowed if:
+Unless a modification is made, reuploads of Scratch projects are only allowed if:
 * You own the project; or
 * The owner of the project has gave you permission to reupload it (provide proof in the notes and credits)
-
-Unchanged reuploads of popular projects (e.g. *Paper Minecraft* or *Geometry Dash*) are not allowed.
 
 Unchanged reuploads are not licenced under version 4.0 of the Creative Commons Attribution-ShareAlike licence,
 but instead under version 2.0 of the same licence, in accordance with the Scratch Terms of Use. To ensure the
@@ -174,13 +173,30 @@ If you own the project, you can relicence your project under version 2.0 on AmpM
 Projects that restrict access to parts of AmpMod, such as the editor, are not allowed.
 This includes:
 * Using a social interaction (e.g. following, loving, commenting) to unlock parts of the project
-* Preventing users from remixing the project
+* Preventing users from remixing the project or seeing the project source code
 * "Banning" or limiting specific users from accessing the project
+* Restricting access to the project based on age, location, or other personal information
+* Requiring users to sign up for an external service (excluding Scratch, AmpMod Wiki, or AmpMod forums) to access the project
+* Requiring users to be a moderator or operator of AmpMod to access the project, or preventing moderators or operators from accessing the project
+* Preventing users from reporting the project
+
+The following are allowed:
+* Requiring users to have the AmpModder rank to access the project
+* Requiring users to have an AmpMod account to access the project
+* 
 
 ## Cloud variable chatrooms
 Projects that focus on chatting with other users are not allowed, as we cannot safely moderate these.
 However, projects with cloud chat that don't revolve around it *are* allowed, but only if users can only
 send select pre-defined messages that they cannot create themselves.
+Examples of allowed projects:
+* A game where users can accuse others of doing something (e.g.  Among Us)
+* A game where users can send pre-defined messages to each other (e.g. "Hello", "Good game", "Watch out!")
+* A game where users can vote for something (e.g. "Yes", "No", "Maybe")
+
+Examples of disallowed projects:
+* A chatroom where users can send any non-pre-defined message they want
+* A chatroom where users can send any message to a single person or a group of people, whether pre-defined or not
 
 ## Complaints about Scratch
 Projects that complain about Scratch, its policies, or its staff are not allowed. This includes

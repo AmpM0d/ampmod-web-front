@@ -2,7 +2,7 @@
 title: AmpMod Privacy Policy
 ---
 
-*Last updated: 29/06/2025 (d/m/y format)*
+*Last updated: 2025-08-23*
 
 The AmpMod project respects your privacy. Every website says this, but we mean it.
 For the purpose of transparency, here is a list of every place where and how your data may be used.
@@ -10,6 +10,7 @@ For the purpose of transparency, here is a list of every place where and how you
 ## AmpMod website
 The AmpMod website does not collect any personal information.
 The only data collected is anonymous usage data, which is used to improve the website.
+These analytics do not use cookies and do not track you across other websites.
 
 A cookie is used to store your session so that you can stay logged in.
 This cookie is not used for any other purpose and is not shared with any third parties.
