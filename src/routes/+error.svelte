@@ -1,5 +1,6 @@
 <script lang="ts">
     import { page } from '$app/state';
+    import Layout from './(main)/+layout.svelte';
 
     // A mapping of common HTTP status codes to human-readable descriptions
     const statusDescriptions: Record<number, string> = {
@@ -36,6 +37,7 @@
     const description = statusDescriptions[page.status] || "An unknown error occurred.";
 </script>
 
+<Layout>
 <div class="flex flex-col items-center justify-center mt-30 text-center">
     <!-- Display status code -->
     <div class="text-7xl font-bold text-red-500">{page.status} :(</div>
@@ -47,3 +49,4 @@
     <!-- Home link -->
     <a href="/" class="bg-accent p-2 pl-3 pr-3 text-white text-xl font-bold rounded-lg">Go to Home</a>
 </div>
+</Layout>

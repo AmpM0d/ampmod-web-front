@@ -8,7 +8,6 @@
     import Modal from '$components/modal/Modal.svelte';
     import ToggleSwitch from '$components/toggle-switch/ToggleSwitch.svelte';
     import LeftTabbed from '$components/tabbed/LeftTabbed.svelte';
-    import Minigame from '$components/minigame/Minigame.svelte';
     import Scaffolding from '$components/scaffolding/Scaffolding.svelte';
 
     let showModal = false;
