@@ -19,7 +19,7 @@
 	<title>AmpMod - An advanced programming language</title>
 </svelte:head>
 
-{#if true}
+{#if isAprilFoolsDay()}
 	<Alert
 		id={`april-fools-${getYearsSince2025()}`}
 		icon={TriangleAlert}
