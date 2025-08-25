@@ -103,75 +103,77 @@
     });
 </script>
 
-<header class="fixed top-0 left-0 w-full h-[50px] flex items-center justify-between bg-accent text-white font-sans text-sm border-b border-black/20 shadow-md px-2 md:px-4 z-10">
-    <div class="relative flex items-center md:hidden hamburger-container">
-        <button class="flex items-center justify-center p-3 min-w-[44px] min-h-[44px] text-white text-xl focus:outline-none" onclick={toggleMenu} aria-expanded={isMenuOpen} aria-controls="main-menu">
-            <MenuIcon />
-        </button>
-        {#if isMenuOpen}
-            <div class="absolute left-0 top-full w-48 max-w-[90vw] bg-accent text-white border border-black/20 rounded shadow-lg mt-2 hamburger-menu" transition:fade={{ duration: 100 }} id="main-menu">
-                <a href="https://ampmod.codeberg.page/credits.html" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Credits</a>
-                <a href="https://ampmod.flarum.cloud" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Discuss</a>
-                <a href="https://codeberg.org/AmpMod" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Contribute</a>
-                <a href="https://ampmod.codeberg.page/editor.html" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Create</a>
-                <hr class="my-1 border-t border-black/20" />
-                <a href="/settings" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Settings</a>
-                <input type="text" placeholder="Search for projects..." bind:value={searchQuery} aria-label="Search for projects" class="w-full p-2 rounded bg-transparent text-white placeholder:text-white/70 focus:bg-white focus:text-black focus:outline-none" />
-            </div>
-        {/if}
-    </div>
-
-    <a href="/" class="flex items-center mr-2 logo-link">
-        <img src={Logo} draggable=false height=28 alt="AmpMod" class="h-[28px] transition-transform duration-100 hover:scale-105" />
-    </a>
-
-    <div class="hidden md:flex items-center gap-2">
-        <a href="https://ampmod.codeberg.page/editor.html" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Create</a>
-        <a href="https://ampmod.codeberg.page/credits.html" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Credits</a>
-        <a href="https://ampmod.flarum.cloud" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Discuss</a>
-        <a href="https://codeberg.org/AmpMod" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Contribute</a>
-    </div>
-
-    <nav class="flex items-center gap-2 flex-1 justify-end">
-        <div class="hidden md:flex items-center gap-2 search-bar">
-            <input type="text" placeholder="Search for projects..." bind:value={searchQuery} aria-label="Search for projects" class="p-2 rounded bg-black/10 text-white placeholder:text-white/70 focus:bg-white focus:text-black focus:outline-none w-full max-w-[200px] md:max-w-[300px] lg:max-w-[400px]" />
+<header class="fixed top-0 left-0 w-full h-[50px] flex items-center justify-center bg-accent text-white font-sans text-sm border-b border-black/20 shadow-md px-2 md:px-4 z-10">
+    <div class="flex items-center justify-center w-full gap-4">
+        <div class="relative flex items-center md:hidden hamburger-container">
+            <button class="flex items-center justify-center p-3 min-w-[44px] min-h-[44px] text-white text-xl focus:outline-none" onclick={toggleMenu} aria-expanded={isMenuOpen} aria-controls="main-menu">
+                <MenuIcon />
+            </button>
+            {#if isMenuOpen}
+                <div class="absolute left-0 top-full w-48 max-w-[90vw] bg-accent text-white border border-black/20 rounded shadow-lg mt-2 hamburger-menu" transition:fade={{ duration: 100 }} id="main-menu">
+                    <a href="https://ampmod.codeberg.page/credits.html" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Credits</a>
+                    <a href="https://ampmod.flarum.cloud" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Discuss</a>
+                    <a href="https://codeberg.org/AmpMod" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Contribute</a>
+                    <a href="https://ampmod.codeberg.page/editor.html" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Create</a>
+                    <hr class="my-1 border-t border-black/20" />
+                    <a href="/settings" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={toggleMenu}>Settings</a>
+                    <input type="text" placeholder="Search for projects..." bind:value={searchQuery} aria-label="Search for projects" class="w-full p-2 rounded bg-transparent text-white placeholder:text-white/70 focus:bg-white focus:text-black focus:outline-none" />
+                </div>
+            {/if}
         </div>
-        {#if $isLoggedIn}
-            <a href="/messages" class="inline-flex items-center justify-center h-6 min-w-[44px] min-h-[44px] px-2 py-1 rounded" title="Messages" aria-label="Messages"><Mail /></a>
-            <a href="/mystuff" class="inline-flex items-center justify-center h-6 min-w-[44px] min-h-[44px] px-2 py-1 rounded" title="My Stuff" aria-label="My Stuff"><FolderOpen /></a>
-            <div class="relative flex-shrink-0 profile-dropdown">
-                <button class="flex items-center gap-1 px-3 py-2 rounded font-bold text-white cursor-pointer profile-button hover:bg-black/10" onclick={toggleProfile} aria-expanded={isProfileOpen} aria-controls="profile-menu">
-                    {$username} <ChevronDown size=16 />
-                </button>
-                {#if isProfileOpen}
-                    <div class="absolute right-0 top-full mt-2 w-48 max-w-[90vw] bg-accent text-white border border-black/20 rounded shadow-lg z-20" transition:fade={{ duration: 100 }} id="profile-menu">
-                        <a href={`/@${$username}`} class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Profile</a>
-                        <a href="/settings" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Settings</a>
-                        <hr class="my-1 border-t border-black/20" />
-                        <!-- The direct theme toggle is removed here as well, assuming settings page handles it -->
-                        <a href="/logout" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Log Out</a>
-                    </div>
-                {/if}
-            </div>
-        {:else}
-            <!-- Settings button for logged out users -->
-            <a href="/settings" class="hidden md:block  font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Settings</a>
 
-            <div class="relative login-dropdown">
-                <button class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10" onclick={toggleLogin} aria-expanded={isLoginOpen} aria-controls="login-menu">Log in</button>
-                {#if isLoginOpen}
-                    <div class="absolute right-0 top-full mt-2 w-50 max-w-[95vw] bg-accent text-white border border-black/20 rounded shadow-lg z-20 p-6 flex flex-col gap-4" id="login-menu" style="min-width:260px;" transition:fade={{ duration: 100 }}>
-                        <input id="login-username" type="text" bind:value={loginUsername} class="p-2 rounded bg-white text-black focus:outline-none" autocomplete="username" placeholder="Username" />
-                        <input id="login-password" type="password" bind:value={loginPassword} class="p-2 rounded bg-white text-black focus:outline-none" autocomplete="current-password" placeholder="Password" />
-                        <div class="flex items-center justify-between">
-                            <button class="px-4 py-2 rounded bg-white text-accent font-bold hover:bg-gray-100 transition" onclick={logIn()}>Log in</button>
-                            <a href="/login-help" class="font-bold text-white/90 hover:underline">Can't login?</a>
-                        </div>
-                    </div>
-                {/if}
+        <a href="/" class="flex items-center logo-link">
+            <img src={Logo} draggable=false height=28 alt="AmpMod" class="h-[28px] transition-transform duration-100 hover:scale-105" />
+        </a>
+
+        <div class="hidden md:flex items-center gap-2">
+            <a href="https://ampmod.codeberg.page/editor.html" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Create</a>
+            <a href="https://ampmod.codeberg.page/credits.html" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Credits</a>
+            <a href="https://ampmod.flarum.cloud" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Discuss</a>
+            <a href="https://codeberg.org/AmpMod" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Contribute</a>
+        </div>
+
+        <nav class="flex items-center gap-2 justify-center">
+            <div class="hidden md:flex items-center gap-2 search-bar">
+                <input type="search" placeholder="Search for projects..." bind:value={searchQuery} aria-label="Search for projects" class="p-2 rounded bg-black/10 text-white placeholder:text-white/70 focus:bg-white focus:text-black focus:outline-none w-[300px] focus:shadow-[0_0_0_2px_rgba(0,0,0,0.2)] focus:placeholder:text-gray-500 transition-all" />
             </div>
-            <a href="/join" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link bg-white text-accent hover:text-accent-secondary">Join</a>
-        {/if}
-    </nav>
+            {#if $isLoggedIn}
+                <a href="/messages" class="inline-flex items-center justify-center h-6 min-w-[44px] min-h-[44px] px-2 py-1 rounded" title="Messages" aria-label="Messages"><Mail /></a>
+                <a href="/mystuff" class="inline-flex items-center justify-center h-6 min-w-[44px] min-h-[44px] px-2 py-1 rounded" title="My Stuff" aria-label="My Stuff"><FolderOpen /></a>
+                <div class="relative flex-shrink-0 profile-dropdown">
+                    <button class="flex items-center gap-1 px-3 py-2 rounded font-bold text-white cursor-pointer profile-button hover:bg-black/10" onclick={toggleProfile} aria-expanded={isProfileOpen} aria-controls="profile-menu">
+                        {$username} <ChevronDown size=16 />
+                    </button>
+                    {#if isProfileOpen}
+                        <div class="absolute right-0 top-full mt-2 w-48 max-w-[90vw] bg-accent text-white border border-black/20 rounded shadow-lg z-20" transition:fade={{ duration: 100 }} id="profile-menu">
+                            <a href={`/@${$username}`} class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Profile</a>
+                            <a href="/settings" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Settings</a>
+                            <hr class="my-1 border-t border-black/20" />
+                            <!-- The direct theme toggle is removed here as well, assuming settings page handles it -->
+                            <a href="/logout" class="block px-4 py-2 font-bold hover:bg-black/5" onclick={closeProfile}>Log Out</a>
+                        </div>
+                    {/if}
+                </div>
+            {:else}
+                <!-- Settings button for logged out users -->
+                <a href="/settings" class="hidden md:block  font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10">Settings</a>
+
+                <div class="relative login-dropdown">
+                    <button class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link hover:bg-black/10" onclick={toggleLogin} aria-expanded={isLoginOpen} aria-controls="login-menu">Log in</button>
+                    {#if isLoginOpen}
+                        <div class="absolute right-0 top-full mt-2 w-50 max-w-[95vw] bg-accent text-white border border-black/20 rounded shadow-lg z-20 p-6 flex flex-col gap-4" id="login-menu" style="min-width:260px;" transition:fade={{ duration: 100 }}>
+                            <input id="login-username" type="text" bind:value={loginUsername} class="p-2 rounded bg-white text-black focus:outline-none" autocomplete="username" placeholder="Username" />
+                            <input id="login-password" type="password" bind:value={loginPassword} class="p-2 rounded bg-white text-black focus:outline-none" autocomplete="current-password" placeholder="Password" />
+                            <div class="flex items-center justify-between">
+                                <button class="px-4 py-2 rounded bg-white text-accent font-bold hover:bg-gray-100 transition" onclick={logIn()}>Log in</button>
+                                <a href="/login-help" class="font-bold text-white/90 hover:underline">Can't login?</a>
+                            </div>
+                        </div>
+                    {/if}
+                </div>
+                <a href="/join" class="font-bold px-3 py-2 rounded cursor-pointer whitespace-nowrap header-link bg-white text-accent hover:text-accent-secondary">Join</a>
+            {/if}
+        </nav>
+    </div>
 </header>
 <div class="w-full mt-[50px]"></div>
