@@ -4,9 +4,9 @@
 </script>
 
 
-<section class="flex flex-col md:flex-row items-center justify-between bg-[#4D97FF] text-white font-bold py-16 px-4 md:px-[10%] overflow-hidden shadow-xl">
+<section class="flex flex-col md:flex-row items-center justify-between bg-blue-500 text-white font-bold py-16 px-4 md:px-[10%] overflow-hidden shadow-xl">
     <div class="w-full md:w-2/3 flex flex-col items-center md:items-start gap-8 text-center md:text-left">
-        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+        <h1 class="text-5xl md:text-6xl font-bold leading-tight">
             The new AmpMod is here!
         </h1>
 
@@ -14,9 +14,9 @@
             <a
                 href="https://ampmod.codeberg.page"
                 class="px-8 py-4 text-xl font-black rounded-2xl shadow-lg bg-orange-400 text-white hover:bg-orange-500 transition-colors duration-200 flex items-center gap-2"
-                aria-label="Start Creating"
+                aria-label="Create an AmpMod project"
             >
-                <Clapperboard /> Start Creating
+                <Clapperboard /> Create a project
             </a>
 
             <a
@@ -48,12 +48,5 @@
 </section>
 
 <style>
-    @keyframes float {
-        0% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(-16px) scale(1.05); }
-        100% { transform: translateY(0) scale(1); }
-    }
-    .animate-float {
-        animation: float 4s ease-in-out infinite;
-    }
+    /* Removed playful float animation for a flatter, more serious look */
 </style>
