@@ -7,8 +7,6 @@
     let { children } = $props();
     import Header from '$components/header/Header.svelte';
     import Footer from '$components/footer/Footer.svelte';
-    import "vanilla-cookieconsent/dist/cookieconsent.css";
-    // import * as CookieConsent from "vanilla-cookieconsent";
 
     if (true) {
         console.warn(
