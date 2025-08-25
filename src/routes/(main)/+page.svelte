@@ -19,15 +19,6 @@
 	<title>AmpMod - An advanced programming language</title>
 </svelte:head>
 
-{#if isAprilFoolsDay()}
-	<Alert
-		id={`april-fools-${getYearsSince2025()}`}
-		icon={TriangleAlert}
-		background="#ff1500"
-	>
-		AmpMod was a competition, and is is shutting down tomorrow. We'll pick a winner in 5 years. Don't back up your projects.
-	</Alert>
-{/if}
 <Alert
 	id="please-contribute"
 	button={{
